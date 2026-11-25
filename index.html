@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Crypto Investigation Roadmap</title>
+<meta name="description" content="An interactive study roadmap for blockchain investigation and crypto anti-money-laundering, built by Eden Alon.">
+<meta name="author" content="Eden Alon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Caslon+Text:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday learning tool, serious subject, aimed at a Lahav 433 interview
+   IDEA an investigator's route: five stations from blockchain basics to Lahav 433 casework and data
+   PICTURE the route of stations filling with progress; inside each week, drawn flow diagrams of the mechanism
+   COLOUR white ground, ink, deep teal leading, pale teal fields, brick red only for wrong answers
+   TYPE Libre Caslon Text for titles + Inter for everything else
+   LAYOUT title left with figures right, route full width, tabs, week: materials | goals, then summary, quiz; phone stacks */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0d1416);--ink:light-dark(#14161a,#e3ecec);--mute:light-dark(#56636b,#9db0b2);--rule:light-dark(#dde4e6,#21343a);--teal:light-dark(#0b5d63,#5ec2c8);--tealbg:light-dark(#e5f1f1,#11282b);--card:light-dark(#ffffff,#111d20);--bad:light-dark(#b42318,#ff8f85);--badbg:light-dark(#fdecea,#2b1714)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
+a{color:var(--teal);text-underline-offset:3px}
+h1,h2,h3{font-family:"Libre Caslon Text",Georgia,serif;font-weight:700;line-height:1.08;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1{font-size:clamp(32px,5vw,50px)}
+h2{font-size:clamp(26px,3.4vw,36px)}
+h3{font-size:20px;margin-bottom:10px}
+.band{padding:clamp(24px,4vw,56px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.top{background:var(--tealbg)}
+.head{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:28px;align-items:end}
+.by{margin:10px 0 0;font-size:15px;font-weight:600}
+.lede{color:var(--mute);max-width:62ch;margin:12px 0 0}
+.big{display:flex;gap:24px;justify-content:flex-end;flex-wrap:wrap}
+.big div{text-align:right}
+.big b{display:block;font:700 clamp(36px,5vw,56px)/1 "Libre Caslon Text",Georgia,serif;color:var(--teal)}
+.big span{font-size:14px;color:var(--mute)}
+.route{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin-top:34px}
+.track{position:absolute;left:10%;right:10%;top:44px;height:6px;border-radius:3px;background:var(--rule)}
+.fill{height:100%;border-radius:3px;background:var(--teal);transition:width .6s ease}
+.st{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;color:var(--ink);font:inherit;cursor:pointer;padding:0 4px;min-height:44px}
+.ring{width:94px;height:94px;border-radius:50%;display:grid;place-items:center;transition:transform .2s}
+.ring i{width:72px;height:72px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font:700 22px/1 "Libre Caslon Text",Georgia,serif;font-style:normal}
+.st:hover .ring,.st:focus-visible .ring{transform:scale(1.05)}
+.st[aria-current=true] .ring i{background:var(--teal);color:var(--bg)}
+.st strong{font-size:15px;text-align:center;line-height:1.25}
+.st small{font-size:13px;color:var(--mute);text-align:center}
+.bar{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;margin-top:26px}
+.switch{display:flex;align-items:center;gap:10px;cursor:pointer;min-height:44px;font-size:15px}
+.switch input{appearance:none;width:44px;height:26px;border-radius:13px;background:var(--rule);position:relative;cursor:pointer;margin:0;flex:none}
+.switch input::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--bg);transition:left .2s}
+.switch input:checked{background:var(--teal)}
+.switch input:checked::after{left:21px}
+.next{font-size:15px;color:var(--mute);margin:0}
+.next a{font-weight:600}
+button.btn{font:600 15px Inter,sans-serif;min-height:44px;padding:0 18px;border-radius:8px;border:1px solid var(--teal);background:var(--bg);color:var(--teal);cursor:pointer}
+button.btn:hover{background:var(--tealbg)}
+button.btn.solid{background:var(--teal);color:var(--bg)}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.tabs{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--rule);display:flex;gap:4px;overflow-x:auto;padding:0 max(5vw,16px)}
+.tabs button{flex:none;font:600 15px Inter,sans-serif;min-height:52px;padding:0 14px;border:0;border-bottom:3px solid transparent;background:none;color:var(--mute);cursor:pointer}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--teal)}
+.whead{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:end;margin-bottom:24px}
+.whead p{margin:8px 0 0;color:var(--mute);max-width:70ch}
+.meter{width:min(280px,100%)}
+.meter div{height:8px;border-radius:4px;background:var(--rule);overflow:hidden}
+.meter div span{display:block;height:100%;background:var(--teal);transition:width .4s}
+.meter p{margin:6px 0 0;font-size:14px;color:var(--mute);text-align:right}
+.cols{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:28px;align-items:start}
+.panel{border:1px solid var(--rule);border-radius:12px;padding:20px;background:var(--card)}
+.res{list-style:none;margin:0;padding:0}
+.res>li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;padding:12px 0;border-top:1px solid var(--rule)}
+.res>li:first-child{border-top:0;padding-top:0}
+.res>li.off{display:none}
+input[type=checkbox].ck{width:22px;height:22px;margin:2px 0 0;accent-color:var(--teal);cursor:pointer;flex:none}
+.kind{display:inline-block;font-size:13px;font-weight:600;padding:1px 8px;border-radius:5px;background:var(--tealbg);color:var(--teal);margin-right:6px}
+.kind.core{background:var(--teal);color:var(--bg)}
+.res a{font-weight:600}
+.res p{margin:3px 0 0;font-size:15px;color:var(--mute)}
+.res .min{white-space:nowrap;font-size:13px;color:var(--mute)}
+.done>div>a{text-decoration:line-through;text-decoration-color:var(--mute)}
+.rsum{margin-top:10px;padding:14px 16px;border-radius:10px;background:var(--tealbg);border-left:4px solid var(--teal)}
+.rsum ul{margin:0;padding-left:18px}
+.rsum li{margin:4px 0;font-size:15px;color:var(--ink)}
+.rsum p.tk{margin:10px 0 0;font-size:15px;color:var(--ink)}
+.rsum p.tk b{color:var(--teal)}
+.intro{max-width:78ch}
+.intro p{margin:0 0 12px;font-size:17px}
+.nbtn{margin-top:8px;font:600 14px Inter,sans-serif;min-height:40px;padding:0 12px;border-radius:8px;border:1px dashed var(--teal);background:none;color:var(--teal);cursor:pointer}
+.nbtn.has{border-style:solid;background:var(--tealbg)}
+textarea.note{display:block;width:100%;min-height:130px;margin-top:10px;font:16px/1.5 Inter,sans-serif;padding:12px;border:1px solid var(--rule);border-radius:8px;background:var(--bg);color:var(--ink);resize:vertical}
+textarea.note:focus{border-color:var(--teal);outline:none;box-shadow:0 0 0 3px var(--tealbg)}
+.learn{margin:0;padding-left:20px}
+.learn li{margin:6px 0}
+.task{margin-top:20px;background:var(--tealbg);border-radius:10px;padding:16px}
+.task label{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;cursor:pointer}
+.task p{margin:0}
+.sec{margin-top:44px}
+.sub{color:var(--mute);margin:6px 0 18px;max-width:70ch}
+.sub b{color:var(--teal)}
+.flowlabel{font-weight:600;margin:22px 0 4px}
+.flow{display:flex;align-items:stretch;margin:10px 0 4px}
+.flow.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px}
+.node{flex:1 1 0;border:1px solid var(--rule);border-radius:12px;padding:16px;background:var(--card);display:flex;flex-direction:column;gap:8px}
+.node.hi{background:var(--tealbg);border-color:var(--teal)}
+.node .ic{width:44px;height:44px;color:var(--teal);flex:none}
+.node b{display:block;font-size:15px;line-height:1.25}
+.node span{display:block;font-size:14px;color:var(--mute);line-height:1.4;margin-top:4px}
+.arr{flex:0 0 28px;position:relative}
+.arr::before{content:"";position:absolute;left:4px;right:10px;top:50%;height:2px;background:var(--teal)}
+.arr::after{content:"";position:absolute;right:3px;top:calc(50% - 6px);border-style:solid;border-width:6px 0 6px 9px;border-color:transparent transparent transparent var(--teal)}
+.keys{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:10px;counter-reset:k}
+.keys li{position:relative;padding:12px 14px 12px 52px;border-radius:10px;background:var(--card);border:1px solid var(--rule);counter-increment:k}
+.keys li::before{content:counter(k);position:absolute;left:12px;top:10px;width:28px;height:28px;border-radius:50%;background:var(--teal);color:var(--bg);display:grid;place-items:center;font-weight:700;font-size:14px}
+.line{margin:18px 0 0;padding:18px 20px;border-radius:12px;background:var(--teal);color:var(--bg);font:400 clamp(18px,2.2vw,22px)/1.4 "Libre Caslon Text",Georgia,serif}
+.gl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:8px;margin-top:16px}
+.gl div{display:flex;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid var(--rule);border-radius:8px;background:var(--card)}
+.gl bdi{font-weight:700}
+.gl span{color:var(--mute);text-align:right}
+.mysum{margin-top:22px}
+.mysum label{font-weight:600}
+.qs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px}
+.q p.qt{font-weight:600;margin:0 0 12px}
+.opts{display:grid;gap:8px}
+.opts button{text-align:left;font:15px/1.4 Inter,sans-serif;min-height:44px;padding:10px 14px;border-radius:8px;border:1px solid var(--rule);background:var(--bg);color:var(--ink);cursor:pointer}
+.opts button:hover:not(:disabled){border-color:var(--teal)}
+.opts button.right{border-color:var(--teal);background:var(--tealbg);font-weight:600}
+.opts button.wrong{border-color:var(--bad);background:var(--badbg)}
+.opts button:disabled{cursor:default}
+.fb{margin-top:12px;font-size:15px}
+.fb b.ok{color:var(--teal)}
+.fb b.no{color:var(--bad)}
+.fb button{margin-top:10px}
+.oral{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.oral li{border:1px solid var(--rule);border-radius:12px;padding:16px;background:var(--card)}
+.oral .oq{font-weight:600;margin:0 0 8px}
+details summary{cursor:pointer;color:var(--teal);font-weight:600;min-height:32px}
+details p{margin:8px 0 0;color:var(--ink)}
+.oral label{display:flex;gap:10px;align-items:center;margin-top:10px;cursor:pointer;font-size:15px}
+.pager{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:40px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:14px;color:var(--mute);font-weight:600}
+td:first-child{font-weight:600}
+.story{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:16px}
+.story p{margin:0;padding:16px;border-left:4px solid var(--teal);background:var(--card)}
+.toolrow{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.status{font-size:14px;color:var(--mute)}
+.foot{border-top:1px solid var(--rule);color:var(--mute);font-size:14px}
+.foot p{margin:4px 0}
+@media(max-width:900px){.cols{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:760px){.flow:not(.grid){flex-direction:column}.arr{flex-basis:26px}.arr::before{left:50%;right:auto;top:3px;bottom:10px;width:2px;height:auto}.arr::after{left:calc(50% - 6px);right:auto;top:auto;bottom:2px;border-width:9px 6px 0 6px;border-color:var(--teal) transparent transparent transparent}.flow:not(.grid) .node{flex-direction:row;align-items:flex-start;gap:14px}}
+@media(max-width:600px){.head{grid-template-columns:minmax(0,1fr)}.big{justify-content:flex-start}.big div{text-align:left}.ring{width:56px;height:56px}.ring i{width:42px;height:42px;font-size:16px}.track{top:25px}.st strong{font-size:12px}.st small{display:none}.gl span{text-align:left}.gl div{flex-direction:column;gap:2px}table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--rule)}.stack td{display:block;border:0;padding:3px 0}.stack td::before{content:attr(data-l);display:block;font-size:12px;color:var(--mute);font-weight:600}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="i-coin" viewBox="0 0 48 48"><circle cx="24" cy="26" r="15" fill="currentColor" opacity=".15"/><circle cx="24" cy="24" r="15" fill="none" stroke="currentColor" stroke-width="3"/><path d="M20 17h6a4 4 0 0 1 0 8h-6m0 0h7a4 4 0 0 1 0 8h-7zm0-16v16M23 14v3m0 16v3" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></symbol>
+<symbol id="i-coins" viewBox="0 0 48 48"><circle cx="15" cy="30" r="9" fill="currentColor" opacity=".15"/><circle cx="15" cy="30" r="9" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="32" cy="18" r="7" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="36" cy="35" r="4.5" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="i-tx" viewBox="0 0 48 48"><rect x="6" y="9" width="36" height="30" rx="5" fill="currentColor" opacity=".15"/><path d="M12 18h22l-5-5M36 30H14l5 5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 48 48"><path d="M8 14h28a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H8z" fill="currentColor" opacity=".15"/><path d="M8 14h28a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4V12a4 4 0 0 1 4-4h20v6" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><rect x="30" y="23" width="12" height="8" rx="3" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="i-key" viewBox="0 0 48 48"><circle cx="16" cy="24" r="9" fill="currentColor" opacity=".15"/><circle cx="16" cy="24" r="9" fill="none" stroke="currentColor" stroke-width="3"/><path d="M25 24h17m-5 0v6m-6-6v5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+<symbol id="i-person" viewBox="0 0 48 48"><circle cx="24" cy="16" r="7" fill="none" stroke="currentColor" stroke-width="3"/><path d="M10 40c1-8 7-12 14-12s13 4 14 12z" fill="currentColor" opacity=".15"/><path d="M10 40c1-8 7-12 14-12s13 4 14 12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+<symbol id="i-contract" viewBox="0 0 48 48"><path d="M12 6h18l8 8v28H12z" fill="currentColor" opacity=".15"/><path d="M12 6h18l8 8v28H12zM30 6v8h8M18 22h14M18 28h14M18 34h8" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+<symbol id="i-report" viewBox="0 0 48 48"><path d="M10 6h28v36H10z" fill="currentColor" opacity=".15"/><path d="M10 6h28v36H10zM16 15h16M16 21h12" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><path d="M17 31l4 4 9-9" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-search" viewBox="0 0 48 48"><circle cx="21" cy="21" r="12" fill="currentColor" opacity=".15"/><circle cx="21" cy="21" r="12" fill="none" stroke="currentColor" stroke-width="3"/><path d="M30 30l11 11" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></symbol>
+<symbol id="i-bank" viewBox="0 0 48 48"><path d="M6 18L24 7l18 11z" fill="currentColor" opacity=".15"/><path d="M6 18L24 7l18 11zM10 22v13M19 22v13M29 22v13M38 22v13M6 40h36" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+<symbol id="i-id" viewBox="0 0 48 48"><rect x="5" y="11" width="38" height="26" rx="4" fill="currentColor" opacity=".15"/><rect x="5" y="11" width="38" height="26" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="17" cy="22" r="4" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M11 31c1-3 3-4 6-4s5 1 6 4M28 20h10M28 26h8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></symbol>
+<symbol id="i-mixer" viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="currentColor" opacity=".15"/><path d="M24 7a17 17 0 1 0 17 17M24 14a10 10 0 1 0 10 10M24 21a3 3 0 1 0 3 3" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+<symbol id="i-cash" viewBox="0 0 48 48"><rect x="5" y="13" width="38" height="22" rx="3" fill="currentColor" opacity=".15"/><rect x="5" y="13" width="38" height="22" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="24" cy="24" r="5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M11 19v10M37 19v10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+<symbol id="i-flag" viewBox="0 0 48 48"><path d="M12 8h24l-5 8 5 8H12z" fill="currentColor" opacity=".15"/><path d="M12 42V8h24l-5 8 5 8H12" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+<symbol id="i-shield" viewBox="0 0 48 48"><path d="M24 5l16 6v12c0 10-7 17-16 20C15 40 8 33 8 23V11z" fill="currentColor" opacity=".15"/><path d="M24 5l16 6v12c0 10-7 17-16 20C15 40 8 33 8 23V11z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M17 24l5 5 9-10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-plug" viewBox="0 0 48 48"><path d="M12 16h24v6a12 12 0 0 1-24 0z" fill="currentColor" opacity=".15"/><path d="M18 5v11M30 5v11M12 16h24v6a12 12 0 0 1-24 0zM24 34v9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-clock" viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="currentColor" opacity=".15"/><circle cx="24" cy="24" r="17" fill="none" stroke="currentColor" stroke-width="3"/><path d="M24 13v11l7 5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-db" viewBox="0 0 48 48"><path d="M9 11v26c0 3 7 6 15 6s15-3 15-6V11" fill="currentColor" opacity=".15"/><ellipse cx="24" cy="11" rx="15" ry="5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M9 11v26c0 3 7 6 15 6s15-3 15-6V11M9 24c0 3 7 6 15 6s15-3 15-6" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="i-rules" viewBox="0 0 48 48"><rect x="6" y="6" width="36" height="36" rx="5" fill="currentColor" opacity=".15"/><path d="M12 16l3 3 5-6M12 29l3 3 5-6M25 16h12M25 29h12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-agent" viewBox="0 0 48 48"><path d="M24 5l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" fill="currentColor" opacity=".15"/><path d="M24 5l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M38 34l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="currentColor"/></symbol>
+<symbol id="i-lock" viewBox="0 0 48 48"><rect x="10" y="21" width="28" height="21" rx="4" fill="currentColor" opacity=".15"/><rect x="10" y="21" width="28" height="21" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><path d="M16 21v-6a8 8 0 0 1 16 0v6M24 29v6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+</defs>
+</svg>
+<header class="top band">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <h1>Crypto investigation roadmap</h1>
+        <p class="by">By <a href="https://github.com/EdenAlon23" target="_blank" rel="noopener">Eden Alon</a> · B.Sc. Computer Science (cybersecurity track), Holon Institute of Technology</p>
+        <p class="lede">Study plan for a Lahav 433 crypto role: how blockchains work, how investigators trace funds, how crypto laundering looks on-chain, the cases Lahav 433 handles, and the data you will build on. Every item has a ready summary, and each stage ends with a general summary before its quiz.</p>
+      </div>
+      <div class="big" id="big"></div>
+    </div>
+    <div class="route" id="route"></div>
+    <div class="bar">
+      <label class="switch"><input type="checkbox" id="fast"> Fast track: core items only, about one week</label>
+      <p class="next" id="next"></p>
+      <p class="status" id="sync" role="status">Saved in this browser</p>
+    </div>
+  </div>
+</header>
+<nav class="tabs" id="tabs" aria-label="Sections"></nav>
+<main class="band"><div class="wrap" id="panel"></div></main>
+<footer class="band foot">
+  <div class="wrap">
+    <p>Links checked on 25 November 2026. Summaries are written from each source; for videos they give the key ideas to take away. Your progress is saved in your browser.</p>
+    <p>An independent study project by Eden Alon, built from public sources. Not affiliated with or endorsed by the Israel Police. <a href="https://github.com/EdenAlon23/crypto-investigation-roadmap" target="_blank" rel="noopener">Source on GitHub</a>.</p>
+    <p><button class="btn" id="reset">Reset all progress</button></p>
+  </div>
+</footer>
+<script>
+{
+const KEY='crypto-roadmap-v1';
+let S={done:{},ans:{},oral:{},read:{},fast:false};
+try{const raw=localStorage.getItem(KEY);if(raw){const v=JSON.parse(raw);S={done:v.done||{},ans:v.ans||{},oral:v.oral||{},read:v.read||{},fast:!!v.fast}}}catch(e){}
+const setSync=m=>{const el=document.getElementById('sync');if(el)el.textContent=m};
+const local=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const clean=()=>({done:S.done,ans:S.ans,oral:S.oral,read:S.read,fast:!!S.fast});
+let ref=null,busy=false,again=false,tPush=null;
+const push=async()=>{if(!ref)return;if(busy){again=true;return}busy=true;setSync('Saving…');
+  try{await ref.set(clean());setSync('Saved to your Claude account')}
+  catch(e){if(e&&e.code==='invalid_argument'){ref=null;setSync('Saved in this browser only')}else setSync('Could not reach your account just now; saved in this browser')}
+  busy=false;if(again){again=false;push()}};
+const save=()=>{local();clearTimeout(tPush);tPush=setTimeout(push,500)};
+
+const WEEKS=[
+{id:'week-1',short:'Fundamentals',title:'Blockchain fundamentals',goal:'Understand what an address, a transaction and a token really are, on both Bitcoin and the account-based chains (Ethereum, Tron).',
+learn:['Hashing (SHA-256, Keccak-256), public/private keys and digital signatures','How an address is derived from a key, on Bitcoin, Ethereum and Tron','The UTXO model: inputs, outputs and change addresses','The account model: balances, nonce, gas, normal vs. internal transactions','ERC-20 and TRC-20 tokens: a transfer is a contract call that emits an event','Stablecoins (USDT, USDC) and the issuer’s power to freeze addresses','Reading a transaction on mempool.space, Etherscan and Tronscan'],
+res:[
+{t:'But how does bitcoin actually work? (3Blue1Brown)',u:'https://www.youtube.com/watch?v=bBC-nXj3Ng4',k:'Video',m:'25 min',core:1,w:'The best visual intro to ledgers, signatures, hashing and proof of work.'},
+{t:'MIT 15.S12 Session 3: Blockchain basics and cryptography',u:'https://ocw.mit.edu/courses/15-s12-blockchain-and-money-fall-2018/resources/session-3-blockchain-basics-cryptography/',k:'Video',m:'75 min',core:0,w:'Hash functions, block headers and Merkle trees, at university depth.'},
+{t:'MIT 15.S12 full lecture list (watch 5: UTXO, 6: smart contracts)',u:'https://classcentral.com/classroom/mit-ocw-15-s12-blockchain-and-money-fall-2018-40992',k:'Video',m:'2.5 h',core:0,w:'Session 5 is the clearest lecture on UTXOs and script; session 6 covers contracts.'},
+{t:'Bitcoin whitepaper (Satoshi Nakamoto)',u:'https://bitcoin.org/bitcoin.pdf',k:'Paper',m:'30 min',core:0,w:'Nine pages. Read sections 2, 5, 7 and 10 (privacy).'},
+{t:'Mastering Bitcoin, free on GitHub',u:'https://github.com/bitcoinbook/bitcoinbook',k:'Book',m:'3 h',core:1,w:'Read only the chapters on keys and addresses, and on transactions.'},
+{t:'Mastering Ethereum, free on GitHub',u:'https://github.com/ethereumbook/ethereumbook',k:'Book',m:'2 h',core:0,w:'Chapters on keys and addresses, transactions and tokens.'},
+{t:'ethereum.org: Accounts',u:'https://ethereum.org/en/developers/docs/accounts/',k:'Docs',m:'15 min',core:1,w:'Externally owned accounts vs. contract accounts.'},
+{t:'ethereum.org: Transactions',u:'https://ethereum.org/en/developers/docs/transactions/',k:'Docs',m:'20 min',core:0,w:'Every field of a transaction, including nonce and gas.'},
+{t:'ethereum.org: ERC-20 token standard',u:'https://ethereum.org/en/developers/docs/standards/tokens/erc-20/',k:'Docs',m:'20 min',core:1,w:'The functions and the Transfer event your system will read.'},
+{t:'TRON developers: TRC-20',u:'https://developers.tron.network/docs/trc20',k:'Docs',m:'20 min',core:1,w:'TRC-20 is ERC-20 compatible; most USDT in Israeli seizure orders is on Tron.'}],
+task:'Open one Bitcoin transaction on mempool.space and one USDT-TRC20 transfer on tronscan.org. Write down what every field means, and point out the change output and the token Transfer event.',
+mcq:[
+{q:'A wallet holds one UTXO worth 0.5 BTC and pays 0.1 BTC. What does the transaction look like?',o:['One 0.5 input; outputs of 0.1 to the payee and about 0.4 back to the sender, minus the fee','One 0.1 input and one 0.1 output','The balance drops by 0.1, like a bank account','Two transactions: one for the payment and one for the fee'],a:0,e:'A UTXO is spent whole. The remainder comes back as a change output, and the fee is inputs minus outputs. Spotting change is the root of most Bitcoin tracing.'},
+{q:'A USDT transfer on Etherscan shows an ETH "Value" of 0. Why?',o:['The transfer failed','It is a call to the USDT contract; the amount and recipient are in the Transfer event (token transfers)','USDT moves off-chain','Etherscan hides stablecoin amounts'],a:1,e:'Token transfers are contract calls. A tracer that reads only the ETH value misses every stablecoin flow.'},
+{q:'How is an Ethereum address derived?',o:['The network assigns a random string','The last 20 bytes of the Keccak-256 hash of the public key','SHA-256 of the private key','The first 20 bytes of the private key'],a:1,e:'Private key → public key (secp256k1) → Keccak-256 → last 20 bytes. Tron uses the same key math with a Base58 encoding, so its addresses start with T.'},
+{q:'What does an account’s nonce do on Ethereum?',o:['Stores the balance','Counts transactions sent from the account, ordering them and preventing replay','Encrypts the transaction','Identifies the block'],a:1,e:'The nonce increases by one with every transaction the account sends.'},
+{q:'Why do USDT flows matter so much to investigators?',o:['USDT cannot be traced','The issuer can freeze (blacklist) addresses, so funds found quickly can be blocked','USDT only exists on Bitcoin','USDT transfers are free'],a:1,e:'Tether can blacklist addresses. After the NBCTF order on 187 IRGC-linked addresses, Tether blacklisted 39 of them.'},
+{q:'A TRC-20 token has decimals = 6. A transfer’s raw value is 2500000. How many tokens moved?',o:['2,500,000','25','2.5','0.25'],a:2,e:'Divide by 10^6. Getting decimals wrong is a classic bug that inflates amounts a million times.'}],
+oral:[
+{q:'Why does Bitcoin create a change output?',a:'A UTXO can only be spent whole. If the input is larger than the payment, the difference (minus the fee) goes to a new output controlled by the sender. Identifying which output is change tells you which way the sender’s funds continued.'},
+{q:'What’s the difference between a wallet and an address?',a:'A wallet is software that holds keys and can control many addresses. An address is one public identifier derived from one key. One person can use thousands of addresses, which is why investigators need clustering.'},
+{q:'Explain the UTXO model vs. the account model in two sentences.',a:'In UTXO, coins are discrete outputs that get consumed and recreated, and a transaction can merge many inputs. In the account model, each address has a balance that goes up and down, and each transaction has exactly one sender.'}]},
+
+{id:'week-2',short:'Tracing',title:'Blockchain investigation techniques',goal:'Learn how investigators follow funds, group addresses into entities, and recognise where a trail reaches a point that can identify someone.',
+learn:['Clustering: common-input ownership and change-address detection','Patterns: peel chains, fan-in and fan-out, fast in-and-out wallets','Attribution: exchange deposit addresses and the hot wallets they sweep into','Where heuristics fail: CoinJoin, custodial wallets, false positives','Cross-chain movement: bridges and DEX swaps','Why an exchange is the usual end of a trace (KYC records)'],
+res:[
+{t:'A Fistful of Bitcoins (Meiklejohn et al., 2013)',u:'https://smeiklej.com/files/imc13.pdf',k:'Paper',m:'1.5 h',core:1,w:'The founding paper on clustering and re-identifying Bitcoin users.'},
+{t:'Plain-English summary of A Fistful of Bitcoins',u:'https://blog.acolyer.org/2017/02/20/a-fistful-of-bitcoins-characterizing-payments-among-men-with-no-names/',k:'Read',m:'15 min',core:0,w:'Read this first if the paper feels dense.'},
+{t:'Blockchain Investigations 101: An Intro to Ethereum (SANS)',u:'https://www.youtube.com/watch?v=mBW7djo_fg8',k:'Video',m:'34 min',core:1,w:'A follow-along investigation on Ethereum with free tools.'},
+{t:'Lifting the Fog: Investigating Cryptocurrency with OSINT (SANS)',u:'https://www.youtube.com/watch?v=rgQ-Mo2fkZc',k:'Video',m:'51 min',core:0,w:'Linking on-chain addresses to off-chain identities.'},
+{t:'What is a peel chain? (Hudson Intelligence)',u:'https://fraud-investigation.squarespace.com/cryptocurrency/tracing/peel-chain',k:'Read',m:'10 min',core:1,w:'A short explanation with a diagram of the pattern.'},
+{t:'Bitquery MoneyFlow video tutorials',u:'https://docs.bitquery.io/docs/category/video-tutorials/',k:'Video',m:'40 min',core:0,w:'Short videos tracing hacks hop by hop, including bridge and exchange hacks.'},
+{t:'Intelligence On Chain: monthly tracing challenges',u:'https://www.youtube.com/@intelligenceonchain',k:'Video',m:'varies',core:0,w:'Worked solutions to real-style tracing cases, including laundering through mixers.'},
+{t:'OpenSanctions: Israel NBCTF seized crypto wallets',u:'https://www.opensanctions.org/datasets/il_mod_crypto',k:'Data',m:'15 min',core:1,w:'Your practice dataset, and later the screening list in the system.'}],
+task:'Take one Tron address from the NBCTF list on OpenSanctions and trace it manually on tronscan.org for 2–3 hops. Draw the flow on paper and mark where you think funds reached an exchange. This drawing is the spec for your graph feature.',
+mcq:[
+{q:'The common-input-ownership heuristic assumes that…',o:['Addresses receiving from the same sender belong to one person','All inputs spent together in one transaction are controlled by the same entity','Change always goes to the largest output','Exchanges never reuse addresses'],a:1,e:'It is powerful but breaks on CoinJoin, where many users deliberately combine inputs in one transaction.'},
+{q:'Which pattern is a peel chain?',o:['Many small deposits merging into one wallet','A large balance moved through a long series of transactions, each sending a small amount out and the rest to a fresh address','A swap from BTC to ETH','A single transfer to an exchange'],a:1,e:'Small peels are less likely to trigger compliance alerts at the exchanges receiving them.'},
+{q:'Why is reaching an exchange often the goal of a trace?',o:['Exchanges publish their users','A regulated exchange holds KYC records, so a court order can identify the account holder','Funds at exchanges are frozen automatically','Exchanges run mixers'],a:1,e:'The blockchain shows the flow; the exchange’s records connect it to a person.'},
+{q:'On Ethereum or Tron, clustering is harder than on Bitcoin mainly because…',o:['There is no public ledger','Each transaction has one sender, so there are no multi-input transactions to cluster on','Addresses change every block','Token transfers are encrypted'],a:1,e:'Account-model investigators rely on other signals: deposit addresses sweeping to one hot wallet, shared gas funding sources, timing.'},
+{q:'A wallet receives 50,000 USDT and sends all of it to three new addresses within 4 minutes. The best label is…',o:['Long-term holder','Pass-through (fast in-and-out) wallet, typical of layering','Exchange hot wallet','Mining reward address'],a:1,e:'Short holding time plus fresh recipients is a classic layering signal.'},
+{q:'Funds leave Ethereum through a bridge. How do you continue the trace?',o:['You can’t; bridges end the trail','Decode the bridge deposit event and find the matching release or mint on the destination chain','Ask the bridge for the private key','Search the same address on every chain'],a:1,e:'Bridges lock or burn on one side and release or mint on the other; the events can be matched.'}],
+oral:[
+{q:'How would you tell that an address belongs to an exchange?',a:'Many unrelated senders, deposits of varied sizes, funds swept on a schedule into one large hot wallet, and labels on explorers. Deposit addresses are usually per-customer, which is exactly why they are useful for a court order.'},
+{q:'When does common-input ownership give a wrong result?',a:'CoinJoin and PayJoin transactions, where several people combine inputs on purpose, and custodial services that batch funds belonging to many customers. Treating those as one entity merges innocent people into the cluster.'},
+{q:'Walk through your Tronscan trace: where did it end, and how confident are you?',a:'A good answer names each hop, the amounts, how long funds stayed, and why you believe the end point is an exchange (labels, sweep pattern). Then state the confidence and what could make you wrong.'}]},
+
+{id:'week-3',short:'Laundering',title:'Money laundering, regulation and evidence',goal:'Know the stages and typologies of crypto money laundering, the official red flags, the Israeli bodies involved, and what makes findings usable as evidence.',
+learn:['The three stages: placement, layering, integration','Typologies: structuring, peel chains, mixers, chain-hopping, OTC and P2P cash-out, round-tripping','The FATF red flag indicators for virtual assets (your future rule list)','Sanctions lists (OFAC SDN, NBCTF) and why a listing’s date and source matter','Israel: the Prohibition on Money Laundering Law (2000), IMPA, the NBCTF','Chain of custody, reproducibility, intelligence vs. admissible evidence'],
+res:[
+{t:'FATF: Virtual Assets Red Flag Indicators of ML/TF (2020)',u:'https://www.fatf-gafi.org/content/dam/fatf-gafi/reports/Virtual-Assets-Red-Flag-Indicators.pdf',k:'Report',m:'1.5 h',core:1,w:'The backbone of the detection module. Map each rule to an indicator here.'},
+{t:'FATF: Updated guidance for virtual assets and VASPs (2021)',u:'https://www.fatf-gafi.org/en/publications/fatfrecommendations/documents/guidance-rba-virtual-assets-2021.html',k:'Report',m:'1 h',core:0,w:'Skim the parts on unhosted wallets, stablecoins and the red flag annex.'},
+{t:'MIT 15.S12 Session 8: Public policy',u:'https://ocw.mit.edu/courses/15-s12-blockchain-and-money-fall-2018/resources/session-8-public-policy',k:'Video',m:'75 min',core:0,w:'How regulators approach illicit activity in crypto.'},
+{t:'TRM Labs: 2026 Crypto Crime Report',u:'https://www.trmlabs.com/reports-and-whitepapers/2026-crypto-crime-report',k:'Report',m:'1 h',core:1,w:'Current laundering trends and numbers. Read the money laundering and sanctions sections.'},
+{t:'Elliptic: Israel links wallets that received $1.5B to the IRGC',u:'https://www.elliptic.co/blog/israel-links-crypto-wallets-handling-billions-to-irans-revolutionary-guard/',k:'Case',m:'15 min',core:1,w:'A real Israeli case: NBCTF seizure order, USDT on Tron, Tether freezes.'},
+{t:'NBCTF at the Israel Ministry of Defense',u:'https://mod.gov.il/en/departments/national-bureau-for-counter-terror-financing-of-israel-nbctf',k:'Source',m:'10 min',core:0,w:'Who issues the seizure orders your system will screen against.'},
+{t:'US Treasury: Tornado Cash delisting (March 2025)',u:'https://home.treasury.gov/news/press-releases/sb0057',k:'Case',m:'5 min',core:1,w:'Why “high-risk” and “sanctioned” must be separate labels with dates.'},
+{t:'State Comptroller report on IMPA (English, 2023)',u:'https://library.mevaker.gov.il/sites/DigitalLibrary/Documents/2023/2023.2/EN/2023.2-101-Hon-EN.pdf',k:'Report',m:'45 min',core:0,w:'How IMPA handles suspicious-activity information and passes it on.'},
+{t:'IMPA reporting guidelines for financial asset service providers (Herzog)',u:'https://herzoglaw.co.il/en/?p=33189',k:'Read',m:'10 min',core:0,w:'The Israeli rules that apply to crypto service providers.'}],
+task:'Write five “typology cards”: the typology, its FATF indicator, what it looks like on-chain, and how you would detect it in code. Then retell your week 2 trace in placement, layering and integration terms.',
+mcq:[
+{q:'The correct order of the money laundering stages is…',o:['Layering → placement → integration','Placement → layering → integration','Integration → placement → layering','Placement → integration → layering'],a:1,e:'Enter the system, obscure the trail, then return as apparently clean money.'},
+{q:'Splitting a large sum into many deposits just under a reporting threshold is called…',o:['Peeling','Structuring (smurfing)','Bridging','Round-tripping'],a:1,e:'Structuring is a placement technique and one of the FATF transaction-pattern red flags.'},
+{q:'A wallet interacted with Tornado Cash in 2026. How should the system flag it?',o:['Sanctions hit, since Tornado Cash is on the OFAC list','High-risk mixer exposure, not a sanctions hit: OFAC removed Tornado Cash from the SDN list in March 2025','Ignore it, mixers are legal','Freeze the wallet automatically'],a:1,e:'Mixer use is a strong risk signal, but labels must reflect the list as it stood at the time.'},
+{q:'Israel’s financial intelligence unit is…',o:['The NBCTF','IMPA (the Money Laundering and Terror Financing Prohibition Authority)','Lahav 433','The Israel Securities Authority'],a:1,e:'IMPA was set up in 2002 under the 2000 law and works with the police. The NBCTF, at the Ministry of Defense, issues terror-financing seizure orders.'},
+{q:'Hacked funds go through a mixer, then a bridge, then are swapped into USDT. Which stage is this?',o:['Placement','Layering','Integration','None of them'],a:1,e:'Every step adds distance from the source without cashing out yet.'},
+{q:'Why compute a SHA-256 hash of an exported investigation report?',o:['To encrypt it','To prove later that it was not changed after export (integrity, chain of custody)','To compress it','To hide the addresses'],a:1,e:'Anyone can re-hash the file; a matching hash shows it is the same document.'}],
+oral:[
+{q:'Explain your week 2 trace using the three stages.',a:'Name where the funds entered (placement), each obscuring step (layering: hops, swaps, mixers, bridges), and where they left as usable value (integration: an exchange, OTC desk or P2P trader). Say which stage you are least sure about.'},
+{q:'Why can’t the system just say “sanctioned” when a wallet touched a mixer?',a:'Sanctions are a legal status from a specific list on a specific date; mixer use is a risk indicator. Tornado Cash was delisted in 2025, so a hard-coded “sanctioned” label would be wrong. Store every label with its source and date.'},
+{q:'What is the difference between intelligence and evidence?',a:'Intelligence guides an investigation (heuristic clusters, risk scores). Evidence must be reproducible, documented and unaltered: exact transactions, where the data came from, when, and a hash proving the report was not changed.'}]},
+
+{id:'week-4',short:'Data',title:'Data sources and a prototype',goal:'See the real shape of the data before designing the database: the APIs, their limits, and how an AI agent can use them without inventing facts.',
+learn:['Etherscan API V2: one key, many chains, one chainid per request','TronGrid for TRC-20 history; the mempool.space REST API for Bitcoin','Rate limits, pagination, retries with backoff, caching','AI tool use: the request → tool_use → tool_result loop','Grounding: the agent may only cite data your system collected'],
+res:[
+{t:'Etherscan API V2 documentation',u:'https://docs.etherscan.io',k:'Docs',m:'45 min',core:1,w:'Read the getting started pages, then the account and token endpoints.'},
+{t:'Etherscan: rate limits and daily caps',u:'https://docs.etherscan.io/resources/rate-limits',k:'Docs',m:'10 min',core:0,w:'Drives your token-bucket limiter and cache design.'},
+{t:'TRON developers: TRC-20 (see “Transaction history” via TronGrid)',u:'https://developers.tron.network/docs/trc20',k:'Docs',m:'30 min',core:1,w:'How to pull USDT-TRC20 transfers for an address.'},
+{t:'mempool.space REST API',u:'https://mempool.space/docs/api/rest',k:'Docs',m:'30 min',core:1,w:'Free, no key; address transactions, outspends, UTXOs.'},
+{t:'Claude docs: Tool use overview',u:'https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview',k:'Docs',m:'30 min',core:1,w:'How an agent calls your functions (get_transfers, check_sanctions…).'},
+{t:'Claude docs: How tool use works',u:'https://platform.claude.com/docs/en/agents-and-tools/tool-use/how-tool-use-works',k:'Docs',m:'20 min',core:0,w:'The full loop, and where tools run.'}],
+task:'Write a small throwaway Python script: given an address, fetch its transfers, follow them 2 hops, check every address against the NBCTF list, and print a flow table. Then list the entities you will need in the database.',
+mcq:[
+{q:'With Etherscan API V2, how do you query Polygon instead of Ethereum?',o:['Use a separate Polygonscan key','Same key and endpoint; change the chainid parameter','Polygon is not supported','Add /polygon to the URL path'],a:1,e:'V2 takes one chainid per request, so a multi-chain fetch loops over chain IDs.'},
+{q:'Your free Etherscan key reaches its daily call limit. What happens?',o:['Extra calls are billed as overage','Requests are blocked until the daily limit resets','The key is deleted','Responses slow down but continue'],a:1,e:'The free tier has no overage, so your collector must budget calls and cache results.'},
+{q:'mempool.space returns HTTP 429. What should the collector do?',o:['Skip the address, it was not found','Back off and retry later, keeping what is already cached','Retry immediately in a tight loop','Mark the address invalid'],a:1,e:'429 means you exceeded the rate limit. Exponential backoff plus a cache is the standard answer.'},
+{q:'In Claude tool use, what does your code do when a response has stop_reason "tool_use"?',o:['Show it to the user','Run the requested tool and send its output back in a tool_result block','Restart the conversation','Nothing; Claude runs client tools itself'],a:1,e:'Your application executes client tools; the model only sees the schema and the results you return.'},
+{q:'Why should the backend check every transaction hash the AI agent cites?',o:['To save tokens','A model can produce plausible facts that don’t exist; a report may only cite hashes present in the collected data','Hashes expire','Etherscan requires it'],a:1,e:'An invented transaction in a police report would be a serious failure. Verification makes the agent safe to use.'},
+{q:'Why run collection as a background job with a token-bucket limiter?',o:['Traces can take minutes under rate limits; a job keeps the API responsive and stays within limits','Token buckets encrypt API keys','Background jobs make HTTP faster','It removes the need for a database'],a:0,e:'The web request starts a job and returns at once; the job fetches at a controlled rate.'}],
+oral:[
+{q:'What does a token-transfer API response look like, and what is missing from it?',a:'Each record has a hash, block and time, from, to, the token contract, a raw value and decimals. It has no owner names, no exchange labels and no risk; those come from your label data and rules.'},
+{q:'Which database entities does the system need?',a:'At least: Chain, Address, Transaction, Transfer (token or native), Label (with source and date), Case, CaseAddress, Finding, DetectionRule, AuditLog, and a cache of API responses.'},
+{q:'How does the AI agent stay grounded?',a:'It can only read data through tools you define, it must cite transaction hashes or finding IDs for every claim, and the backend rejects any citation that is not in the case data before the summary is shown.'}]}
+];
+const LAHAV={id:'lahav',short:'Lahav 433',title:'Lahav 433 casework',goal:'Connect everything you learned to the cases Lahav 433 actually investigates, the people it works with, and the legal limits on tracing and freezing crypto.',
+learn:['The National Cyber Unit in Lahav 433 and its crypto department, “Barak” (בינה רשתית קריפטוגרפית)','The core problem: reaching the wallet holder, not the person behind it (straw men, “kofim”)','Case types: crime-organization laundering infrastructure, unlicensed crypto services and money changers, investment frauds, tax evasion, espionage paid in crypto','Partners: the Tax Authority (Yahalom), IMPA, the Shin Bet, the District Attorney, Europol and foreign police','Legal tools and limits: seizure and freeze orders, asking Tether to freeze, and the court fight over authority abroad','The Hebrew terms you will hear in the interview'],
+res:[
+{t:'Maariv: how the “Barak” department tracks crime organizations’ crypto (Hebrew)',u:'https://www.maariv.co.il/news/law/Article-1147370',k:'Read',m:'15 min',core:1,w:'The unit you are applying to, in its own words: goals, methods, and the straw-man problem.'},
+{t:'Ynetnews: crime organizations moving to crypto (former head of the cyber unit)',u:'https://www.ynetnews.com/magazine/article/bkcdaokpmg',k:'Read',m:'20 min',core:1,w:'Why organized crime uses wallets and stablecoins to launder money.'},
+{t:'Funder: cyber unit and Tax Authority vs. a crime organization’s wallet infrastructure (Hebrew)',u:'https://www.funder.co.il/article/162580',k:'Case',m:'10 min',core:1,w:'Three suspects in their 20s allegedly ran wallets to launder tens of millions for a crime organization.'},
+{t:'Ynetnews: 16M NIS crypto laundering via a WhatsApp group, 5 arrested',u:'https://www.ynetnews.com/article/v970rg69o',k:'Case',m:'5 min',core:1,w:'Unlicensed financial asset services: the typical Israeli “crypto changer” case.'},
+{t:'Cointelegraph: details of the WhatsApp crypto case',u:'https://cointelegraph.com/news/israel-police-arrest-five-5m-whatsapp-crypto-scheme',k:'Case',m:'5 min',core:0,w:'Fake loan agreements used to disguise crypto proceeds paid into bank accounts.'},
+{t:'Ynet: raid on the company behind a crypto “sting software” (Hebrew)',u:'https://www.ynet.co.il/news/article/ry7xlcvr2',k:'Case',m:'10 min',core:0,w:'A platform that let crime organizations defraud crypto investors.'},
+{t:'Court rulings on the Tether freeze in the “Russian Sting” case',u:'https://www.afiklaw.com/caselaw/21597',k:'Legal',m:'30 min',core:1,w:'The key legal question for crypto seizure: can the police ask a foreign issuer to freeze funds?'},
+{t:'Times of Israel: Holon residents spying for Iran, paid in crypto (Lahav 433 and Shin Bet)',u:'https://www.timesofisrael.com/two-holon-residents-arrested-on-suspicion-of-spying-for-iran/',k:'Case',m:'5 min',core:1,w:'Espionage payments are a crypto tracing task too.'},
+{t:'TRM Labs: Israeli citizens paid in crypto to spy for Iran',u:'https://www.trmlabs.com/resources/blog/three-israeli-citizens-arrested-for-spying-on-behalf-of-iran-paid-in-crypto',k:'Case',m:'10 min',core:0,w:'How analysts look at the payment side of these cases.'},
+{t:'Calcalist: crypto trader arrested in a joint Tax Authority and Lahav 433 probe',u:'https://www.calcalistech.com/ctechnews/article/vcp9wl7t0',k:'Case',m:'5 min',core:0,w:'Hidden crypto trading income: the tax side of crypto cases.'},
+{t:'Jerusalem Post: Lahav 433 in the cybercrime era',u:'https://m.jpost.com/cybertech/lahav-433-in-the-cybercrime-era-630160',k:'Read',m:'10 min',core:0,w:'How the National Cyber Unit is organized: investigations, intelligence, technology.'},
+{t:'Ynetnews crypto news feed',u:'https://www.ynetnews.com/topics/Crypto/0',k:'News',m:'weekly',core:0,w:'Read the latest Israeli crypto crime stories before the interview.'}],
+task:'Pick two of the cases above. For each, write: the crime, the stage of laundering, the on-chain pattern you would expect, which partner agency was involved, and which feature of your system would have helped. Then learn the glossary below in Hebrew.',
+mcq:[
+{q:'What is the “Barak” department?',o:['The police’s public complaints hotline for crypto','The crypto department of the National Cyber Unit in Lahav 433, which traces wallets to prove laundering and help confiscate assets','A Tax Authority unit','A Shin Bet cyber unit'],a:1,e:'Its name stands for בינה רשתית קריפטוגרפית. It tracks the money of crime organizations that moved into digital wallets.'},
+{q:'According to the head of Barak, what is the core problem in these investigations?',o:['Blockchains are private','Reaching the wallet holder, but not the person who really stands behind the wallet','Bitcoin transactions cannot be traced','Exchanges refuse all requests'],a:1,e:'Criminals use straw men and hired specialists. This is why clustering and linking wallets to people is the real value of a tool.'},
+{q:'In the 16M NIS WhatsApp crypto case, which charge is specific to crypto services?',o:['Espionage','Providing financial asset services without a license','Drug trafficking','Breach of trust'],a:1,e:'Israel requires crypto service providers to be licensed. Unlicensed “changers” are a common Lahav 433 target.'},
+{q:'Why did the District Court cancel the Tether freeze order in the “Russian Sting” case (March 2026)?',o:['The wallet was empty','The order gave a coercive instruction to a foreign company beyond Israeli authority; seizing property abroad goes through the Inter-State Legal Aid Law','Tether refused to cooperate','The police could not trace the funds'],a:1,e:'Tracing was not the problem: the legal route to freeze abroad was. The Supreme Court took the case up as a question of principle.'},
+{q:'How are Israelis recruited by Iranian agents usually paid?',o:['Bank transfers','Cash in envelopes','Cryptocurrency, often a few hundred dollars per task','Gift cards only'],a:2,e:'Recruitment usually happens on social media such as Telegram, with small crypto payments per mission.'},
+{q:'Which partner most often runs joint crypto laundering and tax investigations with Lahav 433?',o:['The Israel Tax Authority (for example its Yahalom unit)','The Ministry of Tourism','The Bank of Israel only','The IDF Spokesperson'],a:0,e:'Many crypto cases combine laundering with hidden income, so the Tax Authority is a frequent partner, alongside IMPA.'}],
+oral:[
+{q:'Why would your system help the Barak department specifically?',a:'Their problem is linking wallets to the real people behind straw men. The system clusters wallets into entities, shows shared funding sources, flags laundering patterns with the FATF indicator behind each one, and ends the trace at an exchange that can be served an order. Everything comes with a hashed, cited report the investigator can rely on.'},
+{q:'How would you spot payments from a foreign handler to recruited agents?',a:'Small, repeated stablecoin payments from one funding source, or a few linked ones, to many fresh wallets that cash out quickly through P2P traders. It is a lead for investigators, never proof on its own.'},
+{q:'What does the Tether case teach about the limits of your tool?',a:'Tracing is technical, but freezing and seizing are legal acts. Funds held by a foreign issuer may need a mutual legal assistance request, so the system should produce clear documentation that supports the legal process rather than assume a freeze will work.'}]};
+
+const SUMS={
+'week-1':{flows:[
+ {label:'Bitcoin: you spend whole coins (UTXO model)',steps:[{i:'coin',t:'A 0.5 BTC coin',d:'An unspent output you own'},{i:'tx',t:'Transaction',d:'Spends the whole coin, signed with your key'},{i:'wallet',t:'0.1 BTC to the shop',d:'The payment'},{i:'key',t:'0.4 BTC change',d:'Returns to a new address of yours. Spot it and you know where the owner went next.',c:'hi'}]},
+ {label:'Ethereum and Tron: accounts with balances',steps:[{i:'person',t:'Alice’s account',d:'One sender per transaction, counted by a nonce'},{i:'contract',t:'USDT contract',d:'Alice calls transfer(); the ETH value is 0'},{i:'report',t:'Transfer event',d:'The real amount and recipient. Divide by 10^decimals (6 for USDT).',c:'hi'},{i:'person',t:'Bob’s account',d:'Balance goes up. The issuer can still freeze it.'}]}],
+ keys:['A private key makes a public key, which makes an address. A wallet is just software holding many keys.','Bitcoin spends whole coins and returns change. Finding the change output is the first step of tracing.','Ethereum and Tron keep a balance per account. Each transaction has one sender and a nonce.','A token transfer is a contract call. Read the Transfer event, not the ETH value, and apply the decimals.','USDT can be frozen by Tether, which is why fast tracing can actually stop money.'],
+ line:'If you can draw change outputs and token Transfer events on a whiteboard, you have the base for everything else.'},
+'week-2':{flows:[{label:'How a typical trace runs',steps:[{i:'search',t:'Start address',d:'From a victim complaint, intelligence or a seizure list'},{i:'wallet',t:'Pass-through wallets',d:'Funds stay minutes, then move. Group addresses into one owner where clues allow.'},{i:'coins',t:'Peel chain',d:'Small amounts split off; the rest moves to a fresh address'},{i:'bank',t:'Exchange deposit address',d:'Swept into the exchange’s hot wallet',c:'hi'},{i:'id',t:'KYC record',d:'A court order to the exchange names the account holder'}]}],
+ keys:['Common-input ownership: inputs spent together usually share an owner. It breaks on CoinJoin.','On Ethereum and Tron there are no multi-input transactions, so clues come from deposit sweeps, gas funding and timing.','Peel chains and fast in-and-out wallets are patterns your rules can detect automatically.','The trace usually ends at an exchange, because the exchange knows who the customer is.','Bridges and swaps don’t end a trail: match the event on one chain to the release on the other.'],
+ line:'The blockchain shows the path; the exchange’s records give the name.'},
+'week-3':{flows:[{label:'The three stages of laundering, on-chain',steps:[{i:'coins',t:'1. Placement',d:'Dirty money enters crypto: many small deposits, fresh wallets right after a scam or hack'},{i:'mixer',t:'2. Layering',d:'Hide the trail: hops, peel chains, mixers, bridges, swaps into USDT on Tron',c:'hi'},{i:'cash',t:'3. Integration',d:'Comes out looking clean: exchanges, OTC brokers, P2P traders, money changers'}]},
+ {label:'Who does what in Israel',grid:1,steps:[{i:'flag',t:'Service providers',d:'Exchanges and licensed crypto services report suspicious activity'},{i:'shield',t:'IMPA',d:'Israel’s financial intelligence unit, set up under the 2000 law'},{i:'search',t:'Israel Police, Lahav 433',d:'Investigates and builds the evidence'},{i:'report',t:'NBCTF',d:'Ministry of Defense: terror-financing seizure orders on wallets'}]}],
+ keys:['Placement, layering, integration: always tell a trace as this story.','The FATF red flag indicators are your ready-made rule list. Map every detection rule to one.','“High risk” and “sanctioned” are different. Store every label with its source and date (Tornado Cash was delisted in 2025).','Intelligence guides you; evidence must be reproducible and unaltered. Hash every exported report.'],
+ line:'Your system doesn’t decide guilt. It shows the pattern, the rule behind it and the transactions that prove it.'},
+'lahav':{flows:[{label:'A Lahav 433 crypto case, start to finish',steps:[{i:'flag',t:'Lead',d:'A victim complaint, intelligence, a Tax Authority or IMPA referral'},{i:'search',t:'Trace (Barak)',d:'Follow the wallets, cluster them, find the endpoints'},{i:'id',t:'Identify',d:'Exchange KYC, devices seized in raids, straw men linked to the organizer',c:'hi'},{i:'lock',t:'Freeze and seize',d:'Court orders in Israel; abroad, legal aid between states'},{i:'report',t:'Prosecution',d:'Evidence file with the District Attorney: laundering, tax, unlicensed services'}]},
+ {label:'The cases you should know',grid:1,steps:[{i:'bank',t:'Crime-organization laundering',d:'Young suspects running wallet infrastructure for an organization'},{i:'cash',t:'Unlicensed changers',d:'Crypto-for-cash services without a license, often via WhatsApp'},{i:'person',t:'Investment fraud',d:'“Sting” platforms and fake investment call centers'},{i:'shield',t:'Espionage',d:'Israelis recruited online and paid in crypto by Iranian agents'}]}],
+ keys:['Barak is Lahav 433’s crypto department; its biggest challenge is the person behind the wallet, not the wallet.','Most Israeli cases mix laundering with tax offences or unlicensed financial asset services.','USDT is both the criminals’ favourite and the investigators’ chance: Tether can freeze it.','Freezing abroad is a legal question; the Tether case reached the Supreme Court in 2026.','Lahav 433 works in teams: the Tax Authority, IMPA, the Shin Bet, prosecutors and foreign police.'],
+ glossary:[['הלבנת הון','Money laundering'],['ארנק דיגיטלי','Digital wallet'],['מטבע יציב','Stablecoin (USDT)'],['צ׳יינג׳','Money changer'],['נותן שירות בנכס פיננסי','Financial asset service provider'],['קוף / איש קש','Straw man'],['צו תפיסה / צו הקפאה','Seizure / freeze order'],['חילוט','Confiscation'],['עזרה משפטית בין מדינות','Mutual legal assistance'],['הרשות לאיסור הלבנת הון','IMPA'],['פירום ארנק','Unpacking a wallet’s activity'],['מודיעין','Intelligence']],
+ line:'In the interview, talk in their language: the person behind the wallet, the exchange that can identify them, and the order that freezes the money.'},
+'week-4':{flows:[{label:'The data path of your system',steps:[{i:'plug',t:'Public APIs',d:'Etherscan V2 (EVM chains), TronGrid (Tron), mempool.space (Bitcoin)'},{i:'clock',t:'Background collector',d:'Rate limiter, retries on 429, cache'},{i:'db',t:'Database',d:'Addresses, transfers, labels with source and date, cases'},{i:'rules',t:'Rules + AI agent',d:'Rules create findings; the agent explains them using your tools only',c:'hi'},{i:'lock',t:'Report',d:'Every claim cites a real hash; the file gets a SHA-256'}]}],
+ keys:['Etherscan V2 is one key for many chains: change chainid, one chain per request.','Free tiers block you at the daily limit; design for limits from day one (job, limiter, cache).','The agent never fetches or invents data on its own: it calls your tools and you return tool_result blocks.','The backend rejects any citation not in the case data before a summary is shown.'],
+ line:'Seeing the raw API data first is what makes the database design right.'}
+};
+
+const RS={
+'week-1':[
+ {p:['A ledger is a shared list of payments. Digital signatures prove who approved each one: the private key signs, the public key checks, and a signature only fits the message it signed, so it can’t be copied.','Nobody owns the ledger. Everyone keeps a copy and broadcasts new transactions.','A hash function (SHA-256) turns any data into a random-looking fingerprint. Proof of work means finding a number that makes a block’s hash start with many zeros: costly to find, instant to check.','Each block contains the previous block’s hash, so blocks form a chain. The network trusts the chain with the most work, so rewriting history means redoing all that work.','Miners earn new bitcoin plus fees. A block comes about every 10 minutes, and the reward halves over time.'],t:'Every Bitcoin payment is public and permanent. That is what makes tracing possible.'},
+ {p:['Hash functions are deterministic, fast, one-way and collision resistant.','A block header holds the previous block’s hash, a Merkle root of all its transactions, a timestamp, the difficulty target and the nonce.','A Merkle tree hashes transactions in pairs up to one root, so you can prove a transaction is in a block with just a few hashes.','Public-key cryptography and digital signatures are what let anyone verify a payment without a bank.'],t:'The chain is tamper-evident: a record you can rely on as evidence of what happened.'},
+ {p:['Session 5: a transaction consumes old outputs (UTXOs) and creates new ones. Each input points to a previous output; each output has an amount and a locking script.','The fee is simply inputs minus outputs; any rest must go back as change.','Session 6: smart contracts are programs stored on a blockchain such as Ethereum. Apps (DApps) and tokens are built from them.'],t:'Bitcoin (UTXO) and Ethereum or Tron (accounts and contracts) need different tracing methods.'},
+ {p:['Section 2: a coin is a chain of digital signatures; each owner signs it over to the next.','Section 5: nodes broadcast transactions, collect them into blocks, do proof of work and accept the longest chain.','Section 7: old transactions can be pruned using the Merkle tree.','Section 10 (privacy): keys are public but not linked to names, and a new key per payment is advised. Satoshi admits that transactions with several inputs reveal that those inputs had the same owner.'],t:'Section 10 is the origin of the common-input-ownership heuristic you will use in week 2.'},
+ {p:['A private key is a random 256-bit number. The public key is derived from it by elliptic curve math (secp256k1); you can’t go backwards.','An address is a hash of the public key or of a script, encoded in Base58Check (starts with 1 or 3) or bech32 (starts with bc1).','Each input references a previous output (txid and index) and carries a signature; each output sets an amount and a locking script.','HD wallets derive thousands of keys from one seed phrase, so one person can have many addresses.'],t:'Many addresses can belong to one person, which is why investigators cluster them.'},
+ {p:['Ethereum has two account types: externally owned (controlled by a key) and contracts (controlled by code).','An address is the last 20 bytes of the Keccak-256 hash of the public key, often written with a mixed-case checksum.','A transaction has a nonce, gas settings, a recipient, a value, a data field and a signature.','An ERC-20 token is a contract that keeps a table of balances; each transfer emits a Transfer event.'],t:'To trace tokens you read the events (logs), not only the ETH value.'},
+ {p:['Externally owned accounts are controlled by a private key and can start transactions. Contract accounts run code and only react.','Each account has a nonce, a balance, a code hash and a storage root.','Creating an account costs nothing: you just generate a key. Deploying a contract costs gas.'],t:'Criminals can create unlimited addresses for free, so a single address tells you little on its own.'},
+ {p:['A transaction includes from, to, value, data, nonce, gas limit and fee fields, plus a signature.','There are three kinds: sending ETH, deploying a contract, and calling a contract.','A transaction goes to the mempool, gets included in a block, and is final after enough blocks.'],t:'For a token transfer, “to” is the token contract; the real recipient is inside the data and the event.'},
+ {p:['ERC-20 is the standard for fungible tokens on Ethereum: every token is equal to every other.','Required functions: name, symbol, decimals, totalSupply, balanceOf, transfer, transferFrom, approve and allowance.','Two events: Transfer (from, to, value) and Approval.','Tokens sent to a contract that doesn’t expect them can be lost forever.'],t:'The Transfer event is the core record for tracing USDT and other stablecoins.'},
+ {p:['TRC-20 is TRON’s fungible token standard and is compatible with ERC-20 at the interface level.','It runs inside the TRON Virtual Machine; TRC-10 is a separate, simpler protocol-level standard.','USDT on Tron uses 6 decimals, so 1,000,000 base units equal 1 USDT.','Transfer history for an address can be pulled through the TronGrid API. Tron addresses start with T.'],t:'USDT on Tron is the main rail in Israeli seizure orders and crime cases.'}],
+'week-2':[
+ {p:['The researchers grouped Bitcoin addresses into entities using two clues: inputs spent together share an owner, and one-time change addresses belong to the sender.','They labelled clusters by dealing with services themselves, for example depositing at the Mt. Gox exchange to tag its addresses.','With clustering and labels, a large share of activity could be tied to known services.','They followed stolen funds, including peeling chains, and saw that money eventually reaches exchanges to be cashed out.'],t:'Bitcoin is far less anonymous than people think, and exchanges are the choke point.'},
+ {p:['A short, plain-English walkthrough of the same paper.','Explains with a simple example how spending from several addresses at once reveals they belong to one wallet.','Shows how deposits and withdrawals at an exchange let you tag its addresses.'],t:'Read this first if the original paper feels heavy.'},
+ {p:['An introduction to investigating on Ethereum for people with no prior experience, with examples you can repeat yourself.','Focus on reading Etherscan: normal transactions, internal transactions and token transfers are three different tabs.','Watch how labels, contract pages and the token transfer list are used to follow funds step by step.'],t:'Try to repeat the examples on Etherscan while you watch.'},
+ {p:['OSINT means open-source intelligence: linking on-chain addresses to off-chain identities.','Typical sources: addresses posted on social media, forums or donation pages, reused usernames, and labels on block explorers.','On-chain analysis shows what happened; OSINT helps show who did it.'],t:'This is how investigators get from “a wallet” to “a person” when there is no exchange record.'},
+ {p:['A peel chain launders a large amount through a long series of small transactions.','At each step a small amount “peels” off to another address and the rest moves to a fresh address.','Small amounts are less likely to raise AML flags at the exchanges that receive them or to trigger reports.'],t:'A detection rule: a chain of transactions where one output is small and the other keeps shrinking.'},
+ {p:['Short videos tracing Bitcoin out from a wallet to see where funds went, including exchange deposit addresses.','Tracing in to see where a wallet’s money came from, hop by hop.','Deep traces of 10 levels, kept readable with a minimum-amount threshold.','Real investigations: the BingX exchange hack, the $81 million Orbit Bridge hack and others.'],t:'Copy the threshold idea into your system: a deep trace is unreadable without a minimum amount filter.'},
+ {p:['Monthly tracing challenges built on sanitized cases, solved with free tools.','Shows methods such as LIFO (last in, first out) to decide which incoming funds an outgoing payment came from.','Later challenges trace laundering networks through mixers and automated exchange services.'],t:'When a wallet mixes clean and dirty money, you need a stated rule (LIFO, FIFO) to decide what you followed.'},
+ {p:['A dataset of crypto wallets seized by the Israeli government through Administrative Seizure Orders.','The publisher is the NBCTF at the Ministry of Defense; the usual legal basis is the Anti-Terrorism Law of 2016.','Most addresses are Tron addresses (starting with T). The data comes from a CSV and is not updated automatically.'],t:'Your practice set for manual tracing, and later the screening list inside the system.'}],
+'week-3':[
+ {p:['FATF built the indicators from more than 100 case studies sent in by countries.','They are grouped into six areas: transaction size and frequency, transaction patterns, anonymity, senders or recipients, source of funds or wealth, and geographical risks.','Examples: amounts just under reporting thresholds, funds moved in and out quickly, mixers and privacy coins, money mules, and links to high-risk countries.','FATF stresses that one indicator alone proves nothing; context decides.'],t:'This is your rule list. Each detection rule in the system should point to one indicator here.'},
+ {p:['The 2021 update explains how FATF standards apply to virtual assets and virtual asset service providers (VASPs).','It covers six areas: the definitions of virtual assets and VASPs, stablecoins, peer-to-peer transfers and unhosted wallets, licensing of VASPs, the “travel rule” for sender and recipient details, and cooperation between supervisors.','An annex gathers red flag indicators, including for DeFi and stablecoins.'],t:'Explains why exchanges must know their customers, which is what makes a court order to them useful.'},
+ {p:['Public policy around crypto has three goals: guard against illicit activity, keep the financial system stable, and protect investors.','Tools include anti-money-laundering and know-your-customer rules, sanctions, and securities and consumer protection laws.'],t:'Investigations happen inside this framework: rules on service providers create the records police use.'},
+ {p:['TRM’s 2026 report finds crypto crime reached an all-time high in 2025.','At the same time, illicit actors took a smaller share of the new money coming into crypto.','It highlights state-linked sanctions evasion, such as the A7 network tied to Russian interests.','It covers hacks, scams, sanctions, terrorism financing and money laundering. Chainalysis separately put 2025 laundering at over $82 billion.'],t:'Gives you current numbers and trends to quote in the interview.'},
+ {p:['In September 2025 the NBCTF published 187 addresses it linked to Iran’s Revolutionary Guards (order ASO 43/25).','Together they had received about $1.5 billion in USDT, mostly on Tron.','Elliptic warns some addresses may belong to services used by many customers, so not every dollar is necessarily IRGC money.','Tether blacklisted 39 of the 187 addresses within days.'],t:'Shows both the power of stablecoin freezes and the need for careful attribution.'},
+ {p:['The NBCTF was set up at the Ministry of Defense in March 2018 after a cabinet decision.','It works to detect and disrupt terror financing and recommends seizure and sanction orders.','In July 2026 the Defense Minister signed sanction orders against 37 wallets of an IRGC financing network.'],t:'NBCTF lists are a key screening source for any Israeli crypto investigation tool.'},
+ {p:['On 21 March 2025 the US Treasury removed Tornado Cash and over 100 Ethereum addresses from the sanctions list.','This followed a November 2024 appeals court ruling that immutable smart contracts are not “property” that OFAC can sanction.','Criminal cases against individuals, such as the developer Roman Storm, continued separately.'],t:'Lists change. Store every label with its source and date, and keep “high risk” apart from “sanctioned”.'},
+ {p:['IMPA, Israel’s financial intelligence unit, was set up in 2002 under the Prohibition on Money Laundering Law of 2000.','It receives reports from financial bodies, analyses them and passes information to the police and other agencies.','The State Comptroller audited how IMPA handles information that raises money laundering or terror financing concerns.'],t:'IMPA is often the source of the lead in a Lahav 433 laundering case.'},
+ {p:['In October 2021 IMPA published reporting guidelines for financial asset service providers, which include crypto services.','An AML order that took effect in November 2021 obliges them to identify customers, report and keep records.'],t:'Licensed crypto services in Israel must keep customer records, which police can obtain. Unlicensed ones are an offence in themselves.'}],
+'lahav':[
+ {p:['“Barak” (בינה רשתית קריפטוגרפית) is the crypto department of Lahav 433’s National Cyber Unit.','It traces the money of crime organizations that moved into digital wallets, to prove money laundering and help confiscate assets.','Its head describes the main problem: they reach the wallet holder, but not the person who really stands behind it.','Criminals use straw men and hired specialists, and exploit legal gaps. The article also mentions NFTs used to launder money.'],t:'Your system should help link wallets to the real people behind them.'},
+ {p:['A former head of Lahav 433’s cyber unit says crime organizations across all sectors use crypto to launder money.','Israeli organized crime began to take crypto seriously around 2017.','Older laundering methods are being replaced by digital wallets and crypto transfers.'],t:'Crypto is now a standard laundering channel for Israeli crime groups, not a niche.'},
+ {p:['In March 2024 the cyber unit and the Tax Authority’s Yahalom unit investigated three suspects in their twenties.','They allegedly ran a network of crypto wallets that laundered tens of millions of shekels for a crime organization and hid it from the authorities.','Cash was found hidden inside a washing machine.'],t:'A typical pattern: young people with technical skills running wallet infrastructure for an organization.'},
+ {p:['Lahav 433’s economic crime unit arrested five suspects over about 16 million shekels.','Charges: money laundering, providing financial asset services without a license, and fraud.','Police seized crypto wallets, computers and cash.'],t:'Unlicensed crypto services are a crime in Israel and a frequent Lahav 433 target.'},
+ {p:['The group arranged crypto trades through a WhatsApp group.','They allegedly used fake loan agreements to disguise crypto proceeds paid directly into bank accounts.','They did not report the transactions to the tax authorities.'],t:'Watch for the moment crypto becomes shekels: that is where fake paperwork appears.'},
+ {p:['A Ramat Gan company allegedly developed “sting software”: a platform that let crime organizations defraud crypto investors.','Losses were estimated at tens of millions of euros, with crime organizations in Israel and abroad behind it.','Six suspects were arrested and dozens detained; the defence denies the claims.'],t:'Investment fraud platforms produce victims whose payments can be traced to a pooling wallet.'},
+ {p:['In the “Russian Sting” investment fraud, the cyber unit traced funds to a USDT wallet and asked Tether to freeze it, then got a court order. The wallet held about 10.7 million USDT.','In March 2026 the District Court cancelled the order: police powers are territorial, and seizing property abroad requires the Inter-State Legal Aid Law.','The Supreme Court then took up the case as a question of principle.'],t:'Tracing is only half the job: the legal route to freeze money abroad is still being decided.'},
+ {p:['Two Holon residents were arrested in a joint Shin Bet and Lahav 433 investigation for spying for Iran.','One photographed sensitive sites and recruited the other; they were in contact with a front organization that recruits Israelis online.','Both were paid in cryptocurrency.'],t:'Espionage cases need crypto tracing too: who paid, from which wallet, and where it was cashed out.'},
+ {p:['Three Israelis were arrested on suspicion of spying for Iran; at least two were paid in crypto.','Crypto lets intelligence services pay agents without banks.','The arrests came days after a major hack on Nobitex, Iran’s largest crypto exchange.'],t:'Small repeated payments from a shared source can reveal a handler’s network.'},
+ {p:['A 43-year-old from northern Israel was arrested on suspicion of hiding tens of millions of dollars in crypto trading.','It was a joint investigation of the Tax Authority and Lahav 433’s coastal economic crime unit.','Investigators seized foreign currency and a luxury car registered in someone else’s name.'],t:'Many crypto cases start as tax cases: hidden trading income is laundering’s twin.'},
+ {p:['The National Cyber Unit sits within Lahav 433 and handles the country’s most complex cybercrime cases.','It works in three areas: investigations, intelligence and technology, with its own legal advisor for technology.','A sister unit, Unit 105, protects minors online. The unit is based in Lod.'],t:'Know where the role sits: a technology role in a unit built around investigators.'},
+ {p:['A running list of Israeli crypto crime stories.','Recent examples: sanctions on 37 IRGC-linked wallets (July 2026) and police and IDF officers accused of a $13 million crypto bribery and theft scheme (June 2026).'],t:'Read the latest headlines the day before the interview.'}],
+'week-4':[
+ {p:['Etherscan API V2 is one endpoint and one key for more than 60 chains.','You pick the chain with the chainid parameter, one chain per request; V1 was switched off in 2025.','The most useful calls for tracing: normal transactions, internal transactions and token transfers of an address, plus event logs.'],t:'Build a loop over chain IDs, not a separate integration per chain.'},
+ {p:['Each plan has a per-second limit and a daily limit; the free tier allows 100,000 calls a day.','From 3 November 2026, requests are blocked once the daily limit is reached; only paid plans can turn on overage.','All keys on one account share the same limit.'],t:'Design for limits from day one: a background job, a limiter and a cache.'},
+ {p:['TRC-20 tokens follow the ERC-20 interface on TRON.','The docs explain how to read a token contract and how to query an address’s TRC-20 transfer history through TronGrid.','Amounts are in base units: divide by 10^decimals.'],t:'This is your data source for USDT on Tron, the chain that matters most in Israeli cases.'},
+ {p:['A free, public Bitcoin API with no key needed.','Main endpoints: address summary, address transactions (with paging), UTXOs, and transaction details.','Exceeding the rate limit returns HTTP 429.'],t:'Handle 429 with backoff and retry, and cache everything you have fetched.'},
+ {p:['Tool use lets Claude call functions you define, such as get_transfers or check_sanctions.','You describe each tool with a name, description and input schema; Claude decides when to call it.','Client tools run in your app; server tools, like web search, run on Anthropic’s side.'],t:'Your AI agent works only through tools you define, so it only sees the data you collected.'},
+ {p:['The loop: send a request with tools, Claude replies with stop_reason “tool_use”, your code runs the tool and sends back a tool_result, and this repeats until Claude answers.','Claude never sees your code, only the tool schema and the results you return.'],t:'Grounding: if a fact isn’t in a tool result, the agent shouldn’t claim it, and your backend checks that.'}]
+};
+const INTRO={
+'week-1':['A blockchain is a public record of payments that nobody can quietly change. Every address is just a public name made from a secret key, and one person can own thousands of them.','Bitcoin works with whole “coins” (UTXOs): you spend a coin completely and get change back. Ethereum and Tron work like bank accounts with balances. Tokens such as USDT are not coins at all: they are entries inside a smart contract, and each transfer leaves a Transfer event.','For an investigator this means two things: every payment can be followed, and you have to know where to look, whether that is the change output on Bitcoin or the Transfer event on Tron.'],
+'week-2':['Tracing means following money from address to address until it reaches somewhere that knows a name. Because one person can use many addresses, investigators group addresses that seem to share an owner. On Bitcoin the strongest clue is that inputs spent together usually belong to one person.','Criminals try to hide the trail with patterns like peel chains and fast pass-through wallets, but those patterns can be recognised. Most trails end at an exchange, and a regulated exchange has the customer’s identity.','Every heuristic can be wrong, for example with CoinJoin or exchange wallets. A good investigator, and a good tool, says how sure it is.'],
+'week-3':['Money laundering turns dirty money into money that looks clean, in three stages: placement (getting it in), layering (hiding where it came from) and integration (taking it out as usable money). In crypto each stage leaves typical footprints on the blockchain.','The FATF red flag indicators list those footprints, and they will become the rules in your system. Sanctions lists add another layer, but they change over time, so every label needs a source and a date.','In Israel, service providers report to IMPA, Lahav 433 investigates, and the NBCTF issues terror financing seizure orders. Whatever you find must be reproducible and unaltered to count as evidence.'],
+'lahav':['Lahav 433’s National Cyber Unit has a crypto department, Barak, that traces the money of crime organizations. Its hardest problem is not the blockchain but the people: straw men hold the wallets while the organizers stay hidden.','The cases fall into a few families: laundering infrastructure for crime organizations, unlicensed crypto changers, investment fraud platforms, hidden trading income, and espionage paid in crypto. Most are run jointly with the Tax Authority, IMPA, the Shin Bet or foreign police.','USDT is both the criminals’ favourite and the investigators’ chance, because Tether can freeze it. But freezing money held abroad is a legal question that reached the Supreme Court in 2026, so a good tool must also produce clean documentation for the legal process.'],
+'week-4':['Your system will get its data from public APIs: Etherscan for Ethereum and similar chains, TronGrid for Tron, and mempool.space for Bitcoin. Each has limits, so data is fetched by a background job with a rate limiter, retries and a cache.','The data goes into a database of addresses, transfers, labels and cases. Rules turn it into findings, and an AI agent explains the findings, but only through tools you define, and every claim must point to a real transaction.','Looking at the real API responses before designing the database is what keeps the design honest.']
+};
+
+WEEKS.splice(3,0,LAHAV);
+const titleOf={'week-1':'Fundamentals','week-2':'Tracing','week-3':'Laundering','lahav':'Lahav 433','week-4':'Data'};
+
+const FINAL={flow:[{i:'search',t:'Lead',d:'A wallet from a complaint, intelligence or a seizure list'},{i:'plug',t:'Collect',d:'Transfers from Bitcoin, Ethereum and Tron, within API limits'},{i:'wallet',t:'Trace',d:'Follow hops, cluster wallets into people, cross bridges'},{i:'flag',t:'Detect',d:'FATF-based rules flag laundering patterns'},{i:'agent',t:'Explain',d:'AI summary as placement, layering, integration; every claim cited',c:'hi'},{i:'lock',t:'Evidence',d:'Hashed report that ends at the exchange or issuer that can identify or freeze'}],
+story:['A wallet address is a public name made from a key. Bitcoin moves whole coins and returns change; Ethereum and Tron move balances, and stablecoins like USDT move through contract events.','Investigators follow the money hop by hop, group wallets that share an owner, and recognise patterns such as peel chains and pass-through wallets. The trail usually ends at an exchange, which knows its customer.','Laundering has three stages: placement, layering, integration. The FATF red flag indicators turn those stages into concrete rules, and every label must keep its source and date.','In Israel, Lahav 433’s cyber unit and its Barak department trace criminal crypto to the person behind the wallet, working with the Tax Authority, IMPA, the Shin Bet and prosecutors. Freezing funds abroad is a legal question, not only a technical one.','The system you will build turns this into software: collect within API limits, trace, detect with explainable rules, let an AI agent explain only what the data proves, and export a hashed report.'],
+map:[['Crime organization laundering through straw wallets','Clusters wallets into entities and shows shared funding sources','Entity view, common-funder rule'],['Unlicensed crypto changers','Flags wallets with many counterparties in both directions and fast cash-out','Changer-pattern rule, exchange endpoints'],['Investment fraud and “sting” platforms','Follows victims’ payments to the wallet where they pool, then to the issuer or exchange','Fan-in rule, USDT issuer flag for a freeze request'],['Espionage paid in crypto','Finds small repeated payments from one source to fresh wallets','Small-payments rule, watchlist alerts'],['Terror financing','Screens every address against NBCTF and OFAC lists, with dates','Sanctions screening with source and date']],
+interview:[['What does your system do?','It takes a suspicious wallet, collects its transfers from several blockchains, traces where the money went, flags laundering patterns based on the FATF red flags, and produces a cited, hashed report that ends at the exchange or issuer that can identify the suspect or freeze the funds.'],['Why focus on USDT on Tron?','Because that is where much of the money moves: Israeli seizure orders list many Tron USDT addresses, crime organizations like stablecoins, and Tether can freeze funds when legally asked.'],['How do you stop the AI from making things up?','The agent can only read data through tools I define, and the backend rejects any claim that doesn’t cite a transaction or finding that exists in the case.'],['What are the limits of your heuristics?','CoinJoin breaks input clustering, exchanges mix customers’ funds, and account-based chains give fewer clues. So findings are leads with a confidence level, and the investigator decides.']],
+next:['Write the requirements spec and user stories from an investigator’s point of view','Design the database schema from the entities you found in the data week','Write a STRIDE threat model for the system itself','Build the MVP: one chain, a case, a 2-hop trace, NBCTF screening and a graph']};
+
+const $=s=>document.querySelector(s);
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const words=t=>(t||'').trim().split(/\s+/).filter(Boolean).length;
+const keyR=(w,i)=>w.id+'-r'+i;
+const icon=n=>`<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+const OPEN=new Set();
+const flow=f=>`${f.label?`<p class="flowlabel">${f.label}</p>`:''}<div class="flow ${f.grid?'grid':''}">${f.steps.map((s,i)=>`${i&&!f.grid?'<span class="arr" aria-hidden="true"></span>':''}<div class="node ${s.c||''}">${icon(s.i)}<div><b>${s.t}</b><span>${s.d}</span></div></div>`).join('')}</div>`;
+
+function stats(w){
+  const res=w.res.map((r,i)=>[r,keyR(w,i)]).filter(([r])=>!S.fast||r.core);
+  const correct=w.mcq.filter((q,i)=>S.ans[w.id+'-q'+i]===q.a).length;
+  const tot=res.length+1+w.mcq.length+w.oral.length;
+  const d=res.filter(([,k])=>S.done[k]).length+(S.done[w.id+'-task']?1:0)+correct+w.oral.filter((o,i)=>S.oral[w.id+'-o'+i]).length;
+  return{tot,d,pct:Math.round(d/tot*100),correct,passed:correct>=Math.ceil(w.mcq.length*.8)};
+}
+const current=()=>{const h=location.hash.slice(1);if(h==='final')return 'final';return WEEKS.find(w=>w.id===h)||WEEKS[0]};
+const readCount=()=>Object.keys(S.read).length;
+
+function renderTop(){
+  const all=WEEKS.map(stats);
+  const tot=all.reduce((a,s)=>a+s.tot,0),d=all.reduce((a,s)=>a+s.d,0);
+  const pct=Math.round(d/tot*100),passed=all.filter(s=>s.passed).length;
+  $('#big').innerHTML=`<div><b>${pct}%</b><span>${d} of ${tot} done</span></div><div><b>${passed}/${WEEKS.length}</b><span>checkpoints</span></div><div><b>${readCount()}</b><span>summaries read</span></div>`;
+  const cur=current(),curId=cur==='final'?'final':cur.id;
+  $('#route').innerHTML=`<div class="track"><div class="fill" style="width:${pct}%"></div></div>`+WEEKS.map((w,i)=>{const s=all[i];
+    return `<button class="st" data-go="${w.id}" aria-current="${w.id===curId}"><span class="ring" style="background:conic-gradient(var(--teal) ${s.pct*3.6}deg,var(--rule) 0)"><i>${s.pct===100?'✓':i+1}</i></span><strong>${w.short}</strong><small>${s.pct}% · quiz ${s.correct}/${w.mcq.length}</small></button>`}).join('');
+  let nx=null;
+  for(const w of WEEKS){const i=w.res.findIndex((r,j)=>r.core&&!S.done[keyR(w,j)]);if(i>-1){nx=w.res[i];break}}
+  $('#next').innerHTML=nx?`Next up: <a href="${nx.u}" target="_blank" rel="noopener">${nx.t}</a>`:'All core materials done. Finish the checkpoints, then write your final summary.';
+  $('#fast').checked=!!S.fast;
+}
+function renderTabs(){
+  const cur=current(),curId=cur==='final'?'final':cur.id;
+  $('#tabs').innerHTML=WEEKS.map((w,i)=>`<button role="tab" data-go="${w.id}" aria-selected="${w.id===curId}">${i+1}. ${w.short}</button>`).join('')+`<button role="tab" data-go="final" aria-selected="${curId==='final'}">Final summary</button>`;
+}
+const sumBtn=k=>`<button class="nbtn ${S.read[k]?'has':''}" data-sum="${k}" aria-expanded="${OPEN.has(k)}" aria-controls="s-${k}">${OPEN.has(k)?'Hide summary':(S.read[k]?'Summary (read)':'Read summary')}</button>`;
+const sumBox=(w,i,k)=>{if(!OPEN.has(k))return '';const r=(RS[w.id]||[])[i];if(!r)return '';return `<div class="rsum" id="s-${k}"><ul>${r.p.map(x=>`<li>${x}</li>`).join('')}</ul><p class="tk"><b>Why it matters:</b> ${r.t}</p></div>`};
+
+function renderWeek(w){
+  const n=WEEKS.indexOf(w),s=stats(w),sum=SUMS[w.id];
+  const res=w.res.map((r,i)=>{const k=keyR(w,i),dn=!!S.done[k];
+    return `<li class="${dn?'done':''} ${S.fast&&!r.core?'off':''}"><input type="checkbox" class="ck" data-res="${k}" id="${k}" ${dn?'checked':''} aria-label="Mark done: ${esc(r.t)}"><div><span class="kind ${r.core?'core':''}">${r.k}${r.core?', core':''}</span><a href="${r.u}" target="_blank" rel="noopener">${r.t}</a> <span class="min">${r.m}</span><p>${r.w}</p>${sumBtn(k)}${sumBox(w,i,k)}</div></li>`}).join('');
+  const qs=w.mcq.map((q,i)=>{const k=w.id+'-q'+i,ans=S.ans[k],has=ans!==undefined;
+    const opts=q.o.map((o,j)=>{let c='';if(has){if(j===q.a)c='right';else if(j===ans)c='wrong'}return `<button class="${c}" data-q="${k}" data-opt="${j}" ${has?'disabled':''}>${o}</button>`}).join('');
+    const fb=has?`<div class="fb">${ans===q.a?'<b class="ok">Correct.</b>':'<b class="no">Not quite.</b>'} ${q.e}${ans!==q.a?`<br><button class="btn" data-retry="${k}">Try again</button>`:''}</div>`:'';
+    return `<div class="panel q"><p class="qt">${i+1}. ${q.q}</p><div class="opts">${opts}</div>${fb}</div>`}).join('');
+  const oral=w.oral.map((o,i)=>{const k=w.id+'-o'+i;
+    return `<li><p class="oq">${o.q}</p><details><summary>Show a model answer</summary><p>${o.a}</p></details><label><input type="checkbox" class="ck" data-oral="${k}" ${S.oral[k]?'checked':''}> I can explain this out loud without notes</label></li>`}).join('');
+  const gl=sum.glossary?`<p class="flowlabel">Hebrew terms for the interview</p><div class="gl">${sum.glossary.map(([h,e])=>`<div><bdi dir="rtl" lang="he">${h}</bdi><span>${e}</span></div>`).join('')}</div>`:'';
+  return `
+  <div class="whead"><div><h2>${n+1}. ${w.title}</h2><p>${w.goal}</p></div>
+  <div class="meter"><div><span style="width:${s.pct}%"></span></div><p>${s.d} of ${s.tot} done · ${s.passed?'checkpoint passed':'checkpoint needs '+Math.ceil(w.mcq.length*.8)+'/'+w.mcq.length}</p></div></div>
+  <div class="cols">
+    <section class="panel"><h3>Study materials</h3><ul class="res">${res}</ul></section>
+    <aside><section class="panel"><h3>What you should understand</h3><ul class="learn">${w.learn.map(l=>`<li>${l}</li>`).join('')}</ul>
+    <div class="task"><label><input type="checkbox" class="ck" data-task="${w.id}-task" ${S.done[w.id+'-task']?'checked':''}><div><p><strong>Hands-on</strong></p><p>${w.task}</p></div></label></div></section></aside>
+  </div>
+  <section class="sec" id="chapter"><h2>Chapter summary</h2><p class="sub">Everything in this stage in plain words and pictures. Read it before the quiz.</p>
+    <div class="intro">${(INTRO[w.id]||[]).map(p=>`<p>${p}</p>`).join('')}</div>
+    ${sum.flows.map(flow).join('')}
+    <ul class="keys">${sum.keys.map(k=>`<li>${k}</li>`).join('')}</ul>
+    ${gl}
+    <p class="line">${sum.line}</p>
+  </section>
+  <section class="sec"><h2>Checkpoint quiz</h2><p class="sub">Score <b>${s.correct}/${w.mcq.length}</b>. Pass at ${Math.ceil(w.mcq.length*.8)} correct.</p><div class="qs">${qs}</div></section>
+  <section class="sec"><h2>Explain it out loud</h2><p class="sub">The questions an interviewer will ask. Answer aloud first, then compare.</p><ul class="oral">${oral}</ul></section>
+  <div class="pager">${n>0?`<button class="btn" data-go="${WEEKS[n-1].id}">← ${WEEKS[n-1].short}</button>`:'<span></span>'}<button class="btn solid" data-go="${n<WEEKS.length-1?WEEKS[n+1].id:'final'}">${n<WEEKS.length-1?WEEKS[n+1].short:'Final summary'} →</button></div>`;
+}
+
+function compile(){
+  let out='CRYPTO INVESTIGATION ROADMAP: SUMMARIES\n';
+  WEEKS.forEach((w,n)=>{
+    out+=`\n=== ${n+1}. ${w.title} ===\n`+(INTRO[w.id]||[]).join('\n')+'\n';
+    w.res.forEach((r,i)=>{const s=(RS[w.id]||[])[i];if(s)out+=`\n- ${r.t}\n`+s.p.map(x=>'  • '+x).join('\n')+`\n  Why it matters: ${s.t}\n`});
+    out+='\nKey points:\n'+SUMS[w.id].keys.map(k=>'  • '+k).join('\n')+'\n';
+  });
+  out+='\n=== The whole picture ===\n'+FINAL.story.join('\n')+'\n';
+  return out.replace(/<[^>]+>/g,'');
+}
+function renderFinal(){
+  return `
+  <div class="whead"><div><h2>Final summary: the whole picture</h2><p>Everything from the five stages in one route, how it maps to Lahav 433 cases, and the answers to have ready.</p></div></div>
+  ${flow({label:'From a lead to evidence',steps:FINAL.flow})}
+  <section class="sec"><h2>The story in five steps</h2><div class="story">${FINAL.story.map(p=>`<p>${p}</p>`).join('')}</div></section>
+  <section class="sec"><h2>How your system fits Lahav 433 cases</h2><p class="sub">The case types the unit handles, and what each one needs from the tool.</p>
+    <div class="scroll"><table class="stack"><thead><tr><th>Case type</th><th>What the system does</th><th>Feature</th></tr></thead><tbody>${FINAL.map.map(r=>`<tr><td data-l="Case type">${r[0]}</td><td data-l="What the system does">${r[1]}</td><td data-l="Feature">${r[2]}</td></tr>`).join('')}</tbody></table></div></section>
+  <section class="sec"><h2>Answers to have ready</h2><ul class="oral">${FINAL.interview.map(([q,a])=>`<li><p class="oq">${q}</p><details><summary>Show a model answer</summary><p>${a}</p></details></li>`).join('')}</ul></section>
+  <section class="sec"><h2>From learning to building</h2><ul class="keys">${FINAL.next.map(k=>`<li>${k}</li>`).join('')}</ul></section>
+  <section class="sec"><h2>All summaries in one place</h2><p class="sub">Every chapter and item summary, in order, as plain text. Copy it into a document or your phone’s notes for revision.</p>
+    <div class="toolrow"><button class="btn solid" id="copyall">Copy all summaries</button><span class="status" id="cstatus" role="status"></span></div>
+    <textarea class="note" id="allnotes" readonly style="min-height:260px">${esc(compile())}</textarea>
+  </section>
+  <div class="pager"><button class="btn" data-go="${WEEKS[WEEKS.length-1].id}">← ${WEEKS[WEEKS.length-1].short}</button><span></span></div>`;
+}
+function renderPanel(){const c=current();$('#panel').innerHTML=c==='final'?renderFinal():renderWeek(c)}
+const render=()=>{renderTop();renderTabs();renderPanel()};
+const change=()=>{save();render()};
+
+document.addEventListener('change',e=>{const t=e.target;
+  if(t.id==='fast'){S.fast=t.checked;change()}
+  else if(t.dataset.res){S.done[t.dataset.res]=t.checked;change()}
+  else if(t.dataset.task){S.done[t.dataset.task]=t.checked;change()}
+  else if(t.dataset.oral){S.oral[t.dataset.oral]=t.checked;change()}
+});
+const copy=async(text,msg)=>{const st=$('#cstatus');try{await navigator.clipboard.writeText(text);st.textContent=msg}catch(e){st.textContent='Copy was blocked. Select the text in the box and copy it by hand.'}};
+let resetArmed=null;
+document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;
+  if(t.dataset.go){const same=location.hash==='#'+t.dataset.go;location.hash=t.dataset.go;if(same)render();$('#tabs').scrollIntoView({behavior:'smooth',block:'start'});return}
+  if(t.dataset.sum){const k=t.dataset.sum;const y=window.scrollY;if(OPEN.has(k))OPEN.delete(k);else{OPEN.add(k);if(!S.read[k]){S.read[k]=true;save();renderTop()}}renderPanel();window.scrollTo(0,y);return}
+  if(t.dataset.opt!==undefined){const y=window.scrollY;S.ans[t.dataset.q]=+t.dataset.opt;change();window.scrollTo(0,y);return}
+  if(t.dataset.retry){const y=window.scrollY;delete S.ans[t.dataset.retry];change();window.scrollTo(0,y);return}
+  if(t.id==='copyall'){copy(compile(),'Summaries copied.');return}
+  if(t.id==='reset'){
+    if(resetArmed){clearTimeout(resetArmed);resetArmed=null;S={done:{},ans:{},oral:{},read:{},fast:false};OPEN.clear();t.textContent='Reset all progress';change()}
+    else{t.textContent='Click again to delete everything';resetArmed=setTimeout(()=>{t.textContent='Reset all progress';resetArmed=null},4000)}
+  }
+});
+window.addEventListener('hashchange',render);
+render();
+(async()=>{
+  if(!window.claude||!window.claude.use)return;
+  try{
+    const [db,user]=await Promise.all([window.claude.use('db'),window.claude.use('user')]);
+    const uid=user?await user.id():null;
+    if(!db||!uid)return;
+    const r=db.doc('data/users/'+uid+'/progress');
+    const to=setTimeout(()=>setSync('Can’t reach your account yet; saving in this browser'),10000);
+    const snap=await r.get();clearTimeout(to);ref=r;
+    if(snap.exists){const v=snap.data()||{};S={done:{...(v.done||{})},ans:{...(v.ans||{})},oral:{...(v.oral||{})},read:{...(v.read||{})},fast:!!v.fast};local();render();setSync('Saved to your Claude account')}
+    else if(Object.keys(S.done).length||Object.keys(S.ans).length||Object.keys(S.oral).length||Object.keys(S.read).length)push();
+    else setSync('Saved to your Claude account');
+  }catch(e){setSync('Saved in this browser')}
+})();
+}
+</script>
+</body>
+</html>
