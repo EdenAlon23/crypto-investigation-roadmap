@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Caslon+Text:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* VOICE everyday learning tool, serious subject, aimed at a Lahav 433 interview
-   IDEA an investigator's route: five stations from blockchain basics to Lahav 433 casework and data
+/* VOICE everyday learning tool, serious subject
+   IDEA an investigator's route: five stations from blockchain basics to Israeli casework and data
    PICTURE the route of stations filling with progress; inside each week, drawn flow diagrams of the mechanism
    COLOUR white ground, ink, deep teal leading, pale teal fields, brick red only for wrong answers
    TYPE Libre Caslon Text for titles + Inter for everything else
@@ -29,11 +29,19 @@ h3{font-size:20px;margin-bottom:10px}
 .band{padding:clamp(24px,4vw,56px) max(5vw,16px)}
 .wrap{max-width:1240px;margin:0 auto}
 .top{background:var(--tealbg)}
-.head{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:28px;align-items:end}
+.head{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:start}
 .by{margin:10px 0 0;font-size:15px;font-weight:600}
 .lede{color:var(--mute);max-width:62ch;margin:12px 0 0}
-.big{display:flex;gap:24px;justify-content:flex-end;flex-wrap:wrap}
-.big div{text-align:right}
+.big{display:flex;gap:clamp(20px,4vw,48px);flex-wrap:wrap;margin-top:28px}
+.big div{text-align:left}
+.card{border:1px solid color-mix(in srgb,var(--teal) 35%,var(--rule));border-radius:14px;padding:20px 22px;background:var(--bg)}
+.card p{margin:0}
+.ct{font-size:13px;font-weight:600;color:var(--teal)}
+.cn{font:700 24px/1.2 "Libre Caslon Text",Georgia,serif;margin-top:6px!important}
+.cs{font-size:14px;color:var(--mute);margin-top:2px!important}
+.card dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 16px;margin:16px 0 0;font-size:15px}
+.card dt{color:var(--mute)}
+.card dd{margin:0}
 .big b{display:block;font:700 clamp(36px,5vw,56px)/1 "Libre Caslon Text",Georgia,serif;color:var(--teal)}
 .big span{font-size:14px;color:var(--mute)}
 .route{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin-top:34px}
@@ -152,7 +160,7 @@ td:first-child{font-weight:600}
 .foot p{margin:4px 0}
 @media(max-width:900px){.cols{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:760px){.flow:not(.grid){flex-direction:column}.arr{flex-basis:26px}.arr::before{left:50%;right:auto;top:3px;bottom:10px;width:2px;height:auto}.arr::after{left:calc(50% - 6px);right:auto;top:auto;bottom:2px;border-width:9px 6px 0 6px;border-color:var(--teal) transparent transparent transparent}.flow:not(.grid) .node{flex-direction:row;align-items:flex-start;gap:14px}}
-@media(max-width:600px){.head{grid-template-columns:minmax(0,1fr)}.big{justify-content:flex-start}.big div{text-align:left}.ring{width:56px;height:56px}.ring i{width:42px;height:42px;font-size:16px}.track{top:25px}.st strong{font-size:12px}.st small{display:none}.gl span{text-align:left}.gl div{flex-direction:column;gap:2px}table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--rule)}.stack td{display:block;border:0;padding:3px 0}.stack td::before{content:attr(data-l);display:block;font-size:12px;color:var(--mute);font-weight:600}}
+@media(max-width:600px){.head{grid-template-columns:minmax(0,1fr)}.ring{width:56px;height:56px}.ring i{width:42px;height:42px;font-size:16px}.track{top:25px}.st strong{font-size:12px}.st small{display:none}.gl span{text-align:left}.gl div{flex-direction:column;gap:2px}table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--rule)}.stack td{display:block;border:0;padding:3px 0}.stack td::before{content:attr(data-l);display:block;font-size:12px;color:var(--mute);font-weight:600}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -187,11 +195,21 @@ td:first-child{font-weight:600}
     <div class="head">
       <div>
         <h1>Crypto investigation roadmap</h1>
-        <p class="by">By <a href="https://github.com/EdenAlon23" target="_blank" rel="noopener">Eden Alon</a> · B.Sc. Computer Science (cybersecurity track), Holon Institute of Technology</p>
-        <p class="lede">Study plan for a Lahav 433 crypto role: how blockchains work, how investigators trace funds, how crypto laundering looks on-chain, the cases Lahav 433 handles, and the data you will build on. Every item has a ready summary, and each stage ends with a general summary before its quiz.</p>
+        <p class="lede">An interactive study path into blockchain investigation and crypto money laundering: how blockchains work, how investigators follow funds, how laundering looks on-chain, real Israeli cases, and the data an investigation tool is built on. Every item has a ready summary, and each stage ends with an illustrated summary and a quiz.</p>
       </div>
-      <div class="big" id="big"></div>
+      <aside class="card" aria-label="About the author">
+        <p class="ct">Created by</p>
+        <p class="cn">Eden Alon</p>
+        <p class="cs">Computer Science, 3rd year · cybersecurity track</p>
+        <dl>
+          <dt>Institute</dt><dd>HIT, Holon Institute of Technology</dd>
+          <dt>Purpose</dt><dd>A study companion for blockchain investigation and crypto anti-money-laundering</dd>
+          <dt>GitHub</dt><dd><a href="https://github.com/EdenAlon23" target="_blank" rel="noopener">EdenAlon23</a></dd>
+          <dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/eden-izhak-alon/" target="_blank" rel="noopener">eden-izhak-alon</a></dd>
+        </dl>
+      </aside>
     </div>
+    <div class="big" id="big"></div>
     <div class="route" id="route"></div>
     <div class="bar">
       <label class="switch"><input type="checkbox" id="fast"> Fast track: core items only, about one week</label>
@@ -336,7 +354,7 @@ res:[
 {t:'TRM Labs: Israeli citizens paid in crypto to spy for Iran',u:'https://www.trmlabs.com/resources/blog/three-israeli-citizens-arrested-for-spying-on-behalf-of-iran-paid-in-crypto',k:'Case',m:'10 min',core:0,w:'How analysts look at the payment side of these cases.'},
 {t:'Calcalist: crypto trader arrested in a joint Tax Authority and Lahav 433 probe',u:'https://www.calcalistech.com/ctechnews/article/vcp9wl7t0',k:'Case',m:'5 min',core:0,w:'Hidden crypto trading income: the tax side of crypto cases.'},
 {t:'Jerusalem Post: Lahav 433 in the cybercrime era',u:'https://m.jpost.com/cybertech/lahav-433-in-the-cybercrime-era-630160',k:'Read',m:'10 min',core:0,w:'How the National Cyber Unit is organized: investigations, intelligence, technology.'},
-{t:'Ynetnews crypto news feed',u:'https://www.ynetnews.com/topics/Crypto/0',k:'News',m:'weekly',core:0,w:'Read the latest Israeli crypto crime stories before the interview.'}],
+{t:'Ynetnews crypto news feed',u:'https://www.ynetnews.com/topics/Crypto/0',k:'News',m:'weekly',core:0,w:'Keep up with the latest Israeli crypto crime stories.'}],
 task:'Pick two of the cases above. For each, write: the crime, the stage of laundering, the on-chain pattern you would expect, which partner agency was involved, and which feature of your system would have helped. Then learn the glossary below in Hebrew.',
 mcq:[
 {q:'What is the “Barak” department?',o:['The police’s public complaints hotline for crypto','The crypto department of the National Cyber Unit in Lahav 433, which traces wallets to prove laundering and help confiscate assets','A Tax Authority unit','A Shin Bet cyber unit'],a:1,e:'Its name stands for בינה רשתית קריפטוגרפית. It tracks the money of crime organizations that moved into digital wallets.'},
@@ -367,7 +385,7 @@ const SUMS={
  {label:'The cases you should know',grid:1,steps:[{i:'bank',t:'Crime-organization laundering',d:'Young suspects running wallet infrastructure for an organization'},{i:'cash',t:'Unlicensed changers',d:'Crypto-for-cash services without a license, often via WhatsApp'},{i:'person',t:'Investment fraud',d:'“Sting” platforms and fake investment call centers'},{i:'shield',t:'Espionage',d:'Israelis recruited online and paid in crypto by Iranian agents'}]}],
  keys:['Barak is Lahav 433’s crypto department; its biggest challenge is the person behind the wallet, not the wallet.','Most Israeli cases mix laundering with tax offences or unlicensed financial asset services.','USDT is both the criminals’ favourite and the investigators’ chance: Tether can freeze it.','Freezing abroad is a legal question; the Tether case reached the Supreme Court in 2026.','Lahav 433 works in teams: the Tax Authority, IMPA, the Shin Bet, prosecutors and foreign police.'],
  glossary:[['הלבנת הון','Money laundering'],['ארנק דיגיטלי','Digital wallet'],['מטבע יציב','Stablecoin (USDT)'],['צ׳יינג׳','Money changer'],['נותן שירות בנכס פיננסי','Financial asset service provider'],['קוף / איש קש','Straw man'],['צו תפיסה / צו הקפאה','Seizure / freeze order'],['חילוט','Confiscation'],['עזרה משפטית בין מדינות','Mutual legal assistance'],['הרשות לאיסור הלבנת הון','IMPA'],['פירום ארנק','Unpacking a wallet’s activity'],['מודיעין','Intelligence']],
- line:'In the interview, talk in their language: the person behind the wallet, the exchange that can identify them, and the order that freezes the money.'},
+ line:'Think like an investigator: the person behind the wallet, the exchange that can identify them, and the order that freezes the money.'},
 'week-4':{flows:[{label:'The data path of your system',steps:[{i:'plug',t:'Public APIs',d:'Etherscan V2 (EVM chains), TronGrid (Tron), mempool.space (Bitcoin)'},{i:'clock',t:'Background collector',d:'Rate limiter, retries on 429, cache'},{i:'db',t:'Database',d:'Addresses, transfers, labels with source and date, cases'},{i:'rules',t:'Rules + AI agent',d:'Rules create findings; the agent explains them using your tools only',c:'hi'},{i:'lock',t:'Report',d:'Every claim cites a real hash; the file gets a SHA-256'}]}],
  keys:['Etherscan V2 is one key for many chains: change chainid, one chain per request.','Free tiers block you at the daily limit; design for limits from day one (job, limiter, cache).','The agent never fetches or invents data on its own: it calls your tools and you return tool_result blocks.','The backend rejects any citation not in the case data before a summary is shown.'],
  line:'Seeing the raw API data first is what makes the database design right.'}
@@ -398,7 +416,7 @@ const RS={
  {p:['FATF built the indicators from more than 100 case studies sent in by countries.','They are grouped into six areas: transaction size and frequency, transaction patterns, anonymity, senders or recipients, source of funds or wealth, and geographical risks.','Examples: amounts just under reporting thresholds, funds moved in and out quickly, mixers and privacy coins, money mules, and links to high-risk countries.','FATF stresses that one indicator alone proves nothing; context decides.'],t:'This is your rule list. Each detection rule in the system should point to one indicator here.'},
  {p:['The 2021 update explains how FATF standards apply to virtual assets and virtual asset service providers (VASPs).','It covers six areas: the definitions of virtual assets and VASPs, stablecoins, peer-to-peer transfers and unhosted wallets, licensing of VASPs, the “travel rule” for sender and recipient details, and cooperation between supervisors.','An annex gathers red flag indicators, including for DeFi and stablecoins.'],t:'Explains why exchanges must know their customers, which is what makes a court order to them useful.'},
  {p:['Public policy around crypto has three goals: guard against illicit activity, keep the financial system stable, and protect investors.','Tools include anti-money-laundering and know-your-customer rules, sanctions, and securities and consumer protection laws.'],t:'Investigations happen inside this framework: rules on service providers create the records police use.'},
- {p:['TRM’s 2026 report finds crypto crime reached an all-time high in 2025.','At the same time, illicit actors took a smaller share of the new money coming into crypto.','It highlights state-linked sanctions evasion, such as the A7 network tied to Russian interests.','It covers hacks, scams, sanctions, terrorism financing and money laundering. Chainalysis separately put 2025 laundering at over $82 billion.'],t:'Gives you current numbers and trends to quote in the interview.'},
+ {p:['TRM’s 2026 report finds crypto crime reached an all-time high in 2025.','At the same time, illicit actors took a smaller share of the new money coming into crypto.','It highlights state-linked sanctions evasion, such as the A7 network tied to Russian interests.','It covers hacks, scams, sanctions, terrorism financing and money laundering. Chainalysis separately put 2025 laundering at over $82 billion.'],t:'Gives you current numbers and trends.'},
  {p:['In September 2025 the NBCTF published 187 addresses it linked to Iran’s Revolutionary Guards (order ASO 43/25).','Together they had received about $1.5 billion in USDT, mostly on Tron.','Elliptic warns some addresses may belong to services used by many customers, so not every dollar is necessarily IRGC money.','Tether blacklisted 39 of the 187 addresses within days.'],t:'Shows both the power of stablecoin freezes and the need for careful attribution.'},
  {p:['The NBCTF was set up at the Ministry of Defense in March 2018 after a cabinet decision.','It works to detect and disrupt terror financing and recommends seizure and sanction orders.','In July 2026 the Defense Minister signed sanction orders against 37 wallets of an IRGC financing network.'],t:'NBCTF lists are a key screening source for any Israeli crypto investigation tool.'},
  {p:['On 21 March 2025 the US Treasury removed Tornado Cash and over 100 Ethereum addresses from the sanctions list.','This followed a November 2024 appeals court ruling that immutable smart contracts are not “property” that OFAC can sanction.','Criminal cases against individuals, such as the developer Roman Storm, continued separately.'],t:'Lists change. Store every label with its source and date, and keep “high risk” apart from “sanctioned”.'},
@@ -415,8 +433,8 @@ const RS={
  {p:['Two Holon residents were arrested in a joint Shin Bet and Lahav 433 investigation for spying for Iran.','One photographed sensitive sites and recruited the other; they were in contact with a front organization that recruits Israelis online.','Both were paid in cryptocurrency.'],t:'Espionage cases need crypto tracing too: who paid, from which wallet, and where it was cashed out.'},
  {p:['Three Israelis were arrested on suspicion of spying for Iran; at least two were paid in crypto.','Crypto lets intelligence services pay agents without banks.','The arrests came days after a major hack on Nobitex, Iran’s largest crypto exchange.'],t:'Small repeated payments from a shared source can reveal a handler’s network.'},
  {p:['A 43-year-old from northern Israel was arrested on suspicion of hiding tens of millions of dollars in crypto trading.','It was a joint investigation of the Tax Authority and Lahav 433’s coastal economic crime unit.','Investigators seized foreign currency and a luxury car registered in someone else’s name.'],t:'Many crypto cases start as tax cases: hidden trading income is laundering’s twin.'},
- {p:['The National Cyber Unit sits within Lahav 433 and handles the country’s most complex cybercrime cases.','It works in three areas: investigations, intelligence and technology, with its own legal advisor for technology.','A sister unit, Unit 105, protects minors online. The unit is based in Lod.'],t:'Know where the role sits: a technology role in a unit built around investigators.'},
- {p:['A running list of Israeli crypto crime stories.','Recent examples: sanctions on 37 IRGC-linked wallets (July 2026) and police and IDF officers accused of a $13 million crypto bribery and theft scheme (June 2026).'],t:'Read the latest headlines the day before the interview.'}],
+ {p:['The National Cyber Unit sits within Lahav 433 and handles the country’s most complex cybercrime cases.','It works in three areas: investigations, intelligence and technology, with its own legal advisor for technology.','A sister unit, Unit 105, protects minors online. The unit is based in Lod.'],t:'Technology there serves the investigators: tools must fit how cases are actually run.'},
+ {p:['A running list of Israeli crypto crime stories.','Recent examples: sanctions on 37 IRGC-linked wallets (July 2026) and police and IDF officers accused of a $13 million crypto bribery and theft scheme (June 2026).'],t:'Follow it weekly to stay current.'}],
 'week-4':[
  {p:['Etherscan API V2 is one endpoint and one key for more than 60 chains.','You pick the chain with the chainid parameter, one chain per request; V1 was switched off in 2025.','The most useful calls for tracing: normal transactions, internal transactions and token transfers of an address, plus event logs.'],t:'Build a loop over chain IDs, not a separate integration per chain.'},
  {p:['Each plan has a per-second limit and a daily limit; the free tier allows 100,000 calls a day.','From 3 November 2026, requests are blocked once the daily limit is reached; only paid plans can turn on overage.','All keys on one account share the same limit.'],t:'Design for limits from day one: a background job, a limiter and a cache.'},
@@ -490,7 +508,7 @@ function renderWeek(w){
     return `<div class="panel q"><p class="qt">${i+1}. ${q.q}</p><div class="opts">${opts}</div>${fb}</div>`}).join('');
   const oral=w.oral.map((o,i)=>{const k=w.id+'-o'+i;
     return `<li><p class="oq">${o.q}</p><details><summary>Show a model answer</summary><p>${o.a}</p></details><label><input type="checkbox" class="ck" data-oral="${k}" ${S.oral[k]?'checked':''}> I can explain this out loud without notes</label></li>`}).join('');
-  const gl=sum.glossary?`<p class="flowlabel">Hebrew terms for the interview</p><div class="gl">${sum.glossary.map(([h,e])=>`<div><bdi dir="rtl" lang="he">${h}</bdi><span>${e}</span></div>`).join('')}</div>`:'';
+  const gl=sum.glossary?`<p class="flowlabel">Key Hebrew terms</p><div class="gl">${sum.glossary.map(([h,e])=>`<div><bdi dir="rtl" lang="he">${h}</bdi><span>${e}</span></div>`).join('')}</div>`:'';
   return `
   <div class="whead"><div><h2>${n+1}. ${w.title}</h2><p>${w.goal}</p></div>
   <div class="meter"><div><span style="width:${s.pct}%"></span></div><p>${s.d} of ${s.tot} done · ${s.passed?'checkpoint passed':'checkpoint needs '+Math.ceil(w.mcq.length*.8)+'/'+w.mcq.length}</p></div></div>
@@ -507,7 +525,7 @@ function renderWeek(w){
     <p class="line">${sum.line}</p>
   </section>
   <section class="sec"><h2>Checkpoint quiz</h2><p class="sub">Score <b>${s.correct}/${w.mcq.length}</b>. Pass at ${Math.ceil(w.mcq.length*.8)} correct.</p><div class="qs">${qs}</div></section>
-  <section class="sec"><h2>Explain it out loud</h2><p class="sub">The questions an interviewer will ask. Answer aloud first, then compare.</p><ul class="oral">${oral}</ul></section>
+  <section class="sec"><h2>Explain it out loud</h2><p class="sub">Check that you can explain it. Answer aloud first, then compare.</p><ul class="oral">${oral}</ul></section>
   <div class="pager">${n>0?`<button class="btn" data-go="${WEEKS[n-1].id}">← ${WEEKS[n-1].short}</button>`:'<span></span>'}<button class="btn solid" data-go="${n<WEEKS.length-1?WEEKS[n+1].id:'final'}">${n<WEEKS.length-1?WEEKS[n+1].short:'Final summary'} →</button></div>`;
 }
 
@@ -523,12 +541,12 @@ function compile(){
 }
 function renderFinal(){
   return `
-  <div class="whead"><div><h2>Final summary: the whole picture</h2><p>Everything from the five stages in one route, how it maps to Lahav 433 cases, and the answers to have ready.</p></div></div>
+  <div class="whead"><div><h2>Final summary: the whole picture</h2><p>Everything from the five stages in one route, how it maps to real Israeli cases, and how to explain it.</p></div></div>
   ${flow({label:'From a lead to evidence',steps:FINAL.flow})}
   <section class="sec"><h2>The story in five steps</h2><div class="story">${FINAL.story.map(p=>`<p>${p}</p>`).join('')}</div></section>
   <section class="sec"><h2>How your system fits Lahav 433 cases</h2><p class="sub">The case types the unit handles, and what each one needs from the tool.</p>
     <div class="scroll"><table class="stack"><thead><tr><th>Case type</th><th>What the system does</th><th>Feature</th></tr></thead><tbody>${FINAL.map.map(r=>`<tr><td data-l="Case type">${r[0]}</td><td data-l="What the system does">${r[1]}</td><td data-l="Feature">${r[2]}</td></tr>`).join('')}</tbody></table></div></section>
-  <section class="sec"><h2>Answers to have ready</h2><ul class="oral">${FINAL.interview.map(([q,a])=>`<li><p class="oq">${q}</p><details><summary>Show a model answer</summary><p>${a}</p></details></li>`).join('')}</ul></section>
+  <section class="sec"><h2>Explaining the project in two minutes</h2><ul class="oral">${FINAL.interview.map(([q,a])=>`<li><p class="oq">${q}</p><details><summary>Show a model answer</summary><p>${a}</p></details></li>`).join('')}</ul></section>
   <section class="sec"><h2>From learning to building</h2><ul class="keys">${FINAL.next.map(k=>`<li>${k}</li>`).join('')}</ul></section>
   <section class="sec"><h2>All summaries in one place</h2><p class="sub">Every chapter and item summary, in order, as plain text. Copy it into a document or your phone’s notes for revision.</p>
     <div class="toolrow"><button class="btn solid" id="copyall">Copy all summaries</button><span class="status" id="cstatus" role="status"></span></div>
